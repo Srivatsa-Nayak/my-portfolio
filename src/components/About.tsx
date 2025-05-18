@@ -87,12 +87,12 @@ export default function About() {
           Solving complex problems and optimizing workflows through automation gives me a great sense of satisfaction.
         </Paragraph>
         <Paragraph className=" mt-4">
-          I value collaboration and enjoy working with cross-functional teams to bring ideas to life.
+          I value collaboration and enjoy working with cross-functional teams to bring ideas to life. 
           I have experience with Git, Maven, Docker, and other tools that support modern development pipelines.
           In my free time, I stay up to date with emerging trends in software engineering and cloud technologies.
         </Paragraph>
         <Paragraph className=" mt-4">
-          Through this website, I aim to share my insights, experiences, and
+          Through this website, I aim to share my insights, experiences, and my
           creations with you. I&apos; constantly looking to improve both my technical and 
           soft skills to become a more effective developer
         </Paragraph>
