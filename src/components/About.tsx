@@ -82,7 +82,7 @@ export default function About() {
 
         <Paragraph className=" mt-4">
           I enjoy exploring and integrating different technologies to improve application performance and developer productivity.
-          Whether it's experimenting with new libraries or understanding how different components interact, I thrive on learning.
+          Whether it&apos;s experimenting with new libraries or understanding how different components interact, I thrive on learning.
           I take pride in writing clean, maintainable code and following software development best practices.
           Solving complex problems and optimizing workflows through automation gives me a great sense of satisfaction.
         </Paragraph>
