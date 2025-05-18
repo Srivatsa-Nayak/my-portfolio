@@ -2,7 +2,7 @@ import { Container } from "@/components/Container";
 import { Heading } from "@/components/Heading";
 import { Highlight } from "@/components/Highlight";
 import { Paragraph } from "@/components/Paragraph";
-import { SingleProduct } from "@/components/Product";
+// import { SingleProduct } from "@/components/Product";
 import { Products } from "@/components/Products";
 import { products } from "@/constants/products";
 import { Product } from "@/types/products";
@@ -24,27 +24,27 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   } else {
     return {
-      title: "Projects | John Doe",
+      title: "Projects | Srivatsa Nayak",
       description:
-        "John Doe is a developer, writer and speaker. He is a digital nomad and travels around the world while working remotely.",
+        "I am a Software Engineer that loves building productsand microservies that are well optimized",
     };
   }
 }
 
-export default function SingleProjectPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  const slug = params.slug;
-  const product = products.find((p) => p.slug === slug);
+// export default function SingleProjectPage({
+//   params,
+// }: {
+//   params: { slug: string };
+// }) {
+//   const slug = params.slug;
+//   const product = products.find((p) => p.slug === slug);
 
-  if (!product) {
-    redirect("/projects");
-  }
-  return (
-    <Container>
-      <SingleProduct product={product} />
-    </Container>
-  );
-}
+//   if (!product) {
+//     redirect("/projects");
+//   }
+//   return (
+//     <Container>
+//       <SingleProduct product={product} />
+//     </Container>
+//   );
+// }

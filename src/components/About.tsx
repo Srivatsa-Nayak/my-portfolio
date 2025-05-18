@@ -93,7 +93,7 @@ export default function About() {
         </Paragraph>
         <Paragraph className=" mt-4">
           Through this website, I aim to share my insights, experiences, and
-          creations with you. I’m constantly looking to improve both my technical and 
+          creations with you. I&apos; constantly looking to improve both my technical and 
           soft skills to become a more effective developer
         </Paragraph>
         <Paragraph className=" mt-4">
