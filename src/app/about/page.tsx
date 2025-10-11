@@ -12,7 +12,7 @@ import About from "@/components/About";
 export const metadata: Metadata = {
   title: "About | Srivatsa Nayak",
   description:
-    "I am a Software Engineer that loves building productsand microservies that are well optimized",
+    "I am a Software Engineer that loves building products and microservies that are well optimized",
 };
 
 export default function AboutPage() {

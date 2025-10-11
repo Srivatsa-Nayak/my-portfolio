@@ -24,7 +24,7 @@ export const Products = () => {
               href={product.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 hover:bg-gray-50 rounded-2xl transition duration-200 p-4"
+              className="group flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 hover:bg-gray-50 rounded-2xl transition duration-200 p-4 bg-gray-100"
             >
               <div className="flex flex-col justify-between">
                 <div>
@@ -35,7 +35,7 @@ export const Products = () => {
                   {product.stack?.map((tech) => (
                     <span
                       key={tech}
-                      className="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded-sm"
+                      className="inline-flex items-center text-xs px-2 py-1 rounded-full bg-neutral-100 text-neutral-800"
                     >
                       {tech}
                     </span>

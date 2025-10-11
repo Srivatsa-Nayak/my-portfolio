@@ -27,10 +27,10 @@ export const githubProjects: Product[] = [
   },
   {
     title: "spring-kafka-microservices",
-    description: "A microservices-based system using Spring Boot and Kafka for asynchronous, event-driven communication between services",
+    description: "A microservices-based system using Spring Boot and Kafka for asynchronous, event-driven communication between services integrated with Docker and Kubernetes.",
     href: "https://github.com/Srivatsa-Nayak/springboot-restful-webservices",
     slug: "devblog",
-    stack: ["Spring Boot", "Apache Kafka"],
-    content: "A microservices-based system using Spring Boot and Kafka for asynchronous, event-driven communication between services",
+    stack: ["Spring Boot", "Apache Kafka", "Kubernetes", "Docker"],
+    content: "A microservices-based system using Spring Boot and Kafka for asynchronous, event-driven communication between services integrated with Docker and Kubernetes.",
   },
 ];
