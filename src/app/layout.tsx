@@ -1,13 +1,14 @@
-import { Sidebar } from "@/components/Sidebar";
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { JetBrains_Mono } from "next/font/google";
 import { twMerge } from "tailwind-merge";
-import { Footer } from "@/components/Footer";
+import { Footer } from "@/components/layout/Footer";
+import { TerminalWindow } from "@/components/layout/TerminalWindow";
 
-const inter = Inter({
+const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  weight: ["400", "500", "700", "800"],
+  variable: "--font-jetbrains-mono",
 });
 
 export const metadata: Metadata = {
@@ -25,16 +26,15 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={twMerge(
-          inter.className,
-          "flex antialiased h-screen overflow-hidden bg-gray-100"
+          jetbrainsMono.variable,
+          "font-mono antialiased h-screen overflow-hidden bg-neutral-950 text-neutral-200"
         )}
       >
-        <Sidebar />
-        <div className="lg:pl-2 lg:pt-2 bg-gray-100 flex-1 overflow-y-auto">
-          <div className="flex-1 bg-white min-h-screen lg:rounded-tl-xl border border-transparent lg:border-neutral-200 overflow-y-auto">
+        <div className="h-screen w-screen p-0 lg:p-3">
+          <TerminalWindow>
             {children}
             <Footer />
-          </div>
+          </TerminalWindow>
         </div>
       </body>
     </html>
