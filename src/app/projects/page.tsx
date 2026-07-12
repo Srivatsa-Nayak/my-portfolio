@@ -1,10 +1,8 @@
-import { Container } from "@/components/Container";
-import { Heading } from "@/components/Heading";
-import { Highlight } from "@/components/Highlight";
-import { Paragraph } from "@/components/Paragraph";
-import { Products } from "@/components/Products";
+import { Container } from "@/components/layout/Container";
+import { Heading } from "@/components/ui/Heading";
+import { Products } from "@/components/sections/Products";
+
 import { Metadata } from "next";
-import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Projects | Srivatsa Nayak",

@@ -1,11 +1,8 @@
-import { Contact } from "@/components/Contact";
-import { Container } from "@/components/Container";
-import { Heading } from "@/components/Heading";
-import { Highlight } from "@/components/Highlight";
-import { Paragraph } from "@/components/Paragraph";
-import { Products } from "@/components/Products";
+import { Contact } from "@/components/sections/Contact";
+import { Container } from "@/components/layout/Container";
+import { Heading } from "@/components/ui/Heading";
+import { Paragraph } from "@/components/ui/Paragraph";
 import { Metadata } from "next";
-import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Contact | Srivatsa Nayak",
@@ -19,8 +16,9 @@ export default function Projects() {
       <span className="text-4xl">✉️</span>
       <Heading className="font-black mb-2">Contact Me</Heading>
       <Paragraph className="mb-10 max-w-xl">
-        Reach out to me over email or fill up this contact form. I will get back
-        to you ASAP - I promise.{" "}
+        Have a project in mind, a role you think I&apos;d be a good fit for, or
+        just want to say hi? Drop me a message below and I&apos;ll get back to
+        you as soon as I can.
       </Paragraph>
       <Contact />
     </Container>

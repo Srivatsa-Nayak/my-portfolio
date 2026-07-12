@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+::selection {
+  background-color: theme("colors.emerald.500 / 30%");
+  color: theme("colors.emerald.200");
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: theme("colors.neutral.950");
+}
+::-webkit-scrollbar-thumb {
+  background: theme("colors.neutral.700");
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: theme("colors.neutral.600");
+}

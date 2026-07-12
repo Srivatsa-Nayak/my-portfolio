@@ -1,10 +1,8 @@
-import { Container } from "@/components/Container";
-import { Heading } from "@/components/Heading";
-import { Highlight } from "@/components/Highlight";
-import { Paragraph } from "@/components/Paragraph";
-import { Products } from "@/components/Products";
-import { TechStack } from "@/components/TechStack";
-import Image from "next/image";
+import { Container } from "@/components/layout/Container";
+import { Heading } from "@/components/ui/Heading";
+import { Highlight } from "@/components/ui/Highlight";
+import { Paragraph } from "@/components/ui/Paragraph";
+import { TechStack } from "@/components/sections/TechStack";
 
 export default function Home() {
   return (
