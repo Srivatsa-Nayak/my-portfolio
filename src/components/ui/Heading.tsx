@@ -2,9 +2,10 @@ import React from "react";
 
 import { twMerge } from "tailwind-merge";
 
-const PROMPT_PREFIX: Partial<Record<keyof JSX.IntrinsicElements, string>> = {
-  h1: "$",
-  h2: "#",
+const SIZES: Partial<Record<keyof JSX.IntrinsicElements, string>> = {
+  h1: "text-3xl sm:text-5xl",
+  h2: "text-3xl sm:text-4xl",
+  h3: "text-xl sm:text-2xl",
 };
 
 export const Heading = ({
@@ -16,20 +17,14 @@ export const Heading = ({
   children: React.ReactNode;
   as?: keyof JSX.IntrinsicElements;
 }) => {
-  const prefix = PROMPT_PREFIX[Tag];
-
   return (
     <Tag
       className={twMerge(
-        "text-base md:text-xl lg:text-4xl font-bold text-neutral-100",
+        "font-display font-bold tracking-tight text-ink",
+        SIZES[Tag] ?? "text-lg",
         className
       )}
     >
-      {prefix && (
-        <span className="text-emerald-500 drop-shadow-[0_0_6px_rgba(52,211,153,0.35)] mr-2 select-none">
-          {prefix}
-        </span>
-      )}
       {children}
     </Tag>
   );

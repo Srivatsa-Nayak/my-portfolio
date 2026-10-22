@@ -4,6 +4,8 @@ import {
   IconBrandGithub
 } from "@tabler/icons-react";
 
+export const EMAIL = "nayaksrivatsa15@gmail.com";
+
 export const socials = [
   // {
   //   href: "https://twitter.com/mannupaaji",

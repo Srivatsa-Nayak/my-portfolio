@@ -1,12 +1,20 @@
+# Srivatsa Nayak — Portfolio
+
+Single-page portfolio site.
+
 ## Built with
-- Next.js
-- Tailwindcss
-- Framer motion
-- MDX
+- Next.js 13 (App Router) + TypeScript
+- Tailwind CSS
+- Framer Motion
 - Resend (contact form email)
 
-## Run yarn install to install all the dependecies 
-## To Run the application run yarn dev
+## Running locally
+```bash
+yarn install   # install dependencies
+yarn dev       # http://localhost:3000
+```
+
+For a production build: `yarn build` then `yarn start`.
 
 ## Contact form setup
 The contact form sends you an email via [Resend](https://resend.com). Copy `.env.local.example` to `.env.local` and fill in:
@@ -15,3 +23,7 @@ The contact form sends you an email via [Resend](https://resend.com). Copy `.env
 - `CONTACT_FROM_EMAIL` — sender identity; the default `onboarding@resend.dev` works without domain verification
 
 Without these env vars set, the form will show a friendly error instead of failing silently.
+
+## Updating content
+- Projects, experience, skills, nav links and social links live in `src/constants/`.
+- The downloadable résumé is `public/Resume_Srivatsa_Nayak.pdf` — replace that file to update it.

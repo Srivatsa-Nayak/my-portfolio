@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { CopyEmailButton } from "@/components/ui/CopyEmailButton";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -106,7 +107,7 @@ export const Contact = () => {
   };
 
   return (
-    <form className="font-mono text-sm max-w-xl" onSubmit={handleSubmit} noValidate>
+    <form className="max-w-3xl" onSubmit={handleSubmit} noValidate>
       {/* Honeypot field — hidden from real visitors, only bots fill it in */}
       <input
         type="text"
@@ -119,136 +120,139 @@ export const Contact = () => {
         aria-hidden="true"
       />
 
-      <Field
-        label="name"
-        error={formData.name.error}
-        input={
-          <input
-            type="text"
-            placeholder="Ada Lovelace"
-            className={inputClass(!!formData.name.error)}
-            value={formData.name.value}
-            onChange={(e) =>
-              setFormData((prev) => ({
-                ...prev,
-                name: { value: e.target.value, error: "" },
-              }))
+      <div className="strip flex-col md:flex-row">
+        <div
+          className="strip-band h-2 w-full md:h-auto md:w-3 bg-chart"
+          aria-hidden="true"
+        />
+        <div className="grid flex-1 grid-cols-1 md:grid-cols-2">
+          <Field
+            label="Name"
+            error={formData.name.error}
+            className="border-b md:border-r"
+            input={
+              <input
+                type="text"
+                placeholder="Ada Lovelace"
+                className="strip-input text-lg"
+                aria-invalid={!!formData.name.error}
+                value={formData.name.value}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    name: { value: e.target.value, error: "" },
+                  }))
+                }
+              />
             }
           />
-        }
-      />
 
-      <Field
-        label="email"
-        error={formData.email.error}
-        input={
-          <input
-            type="email"
-            placeholder="ada@example.com"
-            className={inputClass(!!formData.email.error)}
-            value={formData.email.value}
-            onChange={(e) =>
-              setFormData((prev) => ({
-                ...prev,
-                email: { value: e.target.value, error: "" },
-              }))
+          <Field
+            label="Email"
+            error={formData.email.error}
+            className="border-b"
+            input={
+              <input
+                type="email"
+                placeholder="ada@example.com"
+                className="strip-input text-lg"
+                aria-invalid={!!formData.email.error}
+                value={formData.email.value}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    email: { value: e.target.value, error: "" },
+                  }))
+                }
+              />
             }
           />
-        }
-      />
 
-      <Field
-        label="subject"
-        error={formData.subject.error}
-        input={
-          <input
-            type="text"
-            placeholder="Let's work together"
-            className={inputClass(!!formData.subject.error)}
-            value={formData.subject.value}
-            onChange={(e) =>
-              setFormData((prev) => ({
-                ...prev,
-                subject: { value: e.target.value, error: "" },
-              }))
+          <Field
+            label="Subject"
+            error={formData.subject.error}
+            className="border-b md:col-span-2"
+            input={
+              <input
+                type="text"
+                placeholder="Let's work together"
+                className="strip-input text-lg"
+                aria-invalid={!!formData.subject.error}
+                value={formData.subject.value}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    subject: { value: e.target.value, error: "" },
+                  }))
+                }
+              />
             }
           />
-        }
-      />
 
-      <Field
-        label="message"
-        error={formData.message.error}
-        input={
-          <textarea
-            placeholder="Say hello, or tell me about your project..."
-            rows={8}
-            className={inputClass(!!formData.message.error)}
-            value={formData.message.value}
-            onChange={(e) =>
-              setFormData((prev) => ({
-                ...prev,
-                message: { value: e.target.value, error: "" },
-              }))
+          <Field
+            label="Message"
+            error={formData.message.error}
+            className="md:col-span-2"
+            input={
+              <textarea
+                placeholder="Tell me about the role or project..."
+                rows={6}
+                className="strip-input font-normal text-base resize-y"
+                aria-invalid={!!formData.message.error}
+                value={formData.message.value}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    message: { value: e.target.value, error: "" },
+                  }))
+                }
+              />
             }
           />
-        }
-      />
+        </div>
+      </div>
 
-      <button
-        type="submit"
-        disabled={submitting}
-        className="mt-6 w-full sm:w-auto px-4 py-2 rounded border border-neutral-700 bg-neutral-900 text-neutral-300 transition duration-150 hover:border-emerald-500 hover:text-emerald-400 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:border-neutral-700 disabled:hover:text-neutral-300"
-      >
-        {submitting ? "$ sending..." : "$ ./send_message.sh"}
-      </button>
+      <div className="mt-5 flex flex-wrap items-center gap-4">
+        <button type="submit" disabled={submitting} className="btn-primary">
+          {submitting ? "Sending..." : "Send message"}
+        </button>
+        <p className="text-sm text-ink-soft">
+          Or email me at <CopyEmailButton />
+        </p>
+      </div>
 
       {status.type !== "idle" && (
-        <div
+        <p
           role="status"
-          className={`mt-4 border-l-2 pl-3 py-1 text-sm ${
+          className={`mt-4 border-l-4 bg-sheet px-4 py-3 ${
             status.type === "success"
-              ? "border-emerald-500 text-emerald-400"
-              : "border-red-500 text-red-400"
+              ? "border-go text-go"
+              : "border-hold text-hold"
           }`}
         >
-          <span className="select-none opacity-70">{"> "}</span>
           {status.message}
-          <span className="ml-1 inline-block w-2 translate-y-[1px] animate-cursor-blink bg-current align-middle">
-            &nbsp;
-          </span>
-        </div>
+        </p>
       )}
     </form>
   );
 };
 
-const inputClass = (hasError: boolean) =>
-  `bg-neutral-900 focus:outline-none focus:ring-1 px-3 py-2 rounded border w-full text-neutral-200 placeholder-neutral-600 transition duration-150 ${
-    hasError
-      ? "border-red-500 focus:ring-red-500/50 focus:border-red-500"
-      : "border-neutral-700 focus:ring-emerald-500/50 focus:border-emerald-500"
-  }`;
-
 const Field = ({
   label,
   error,
   input,
+  className,
 }: {
   label: string;
   error: string;
   input: React.ReactNode;
+  className?: string;
 }) => (
-  <div className="mt-4 first:mt-0">
-    <label className="block mb-1 text-neutral-400">
-      <span className="text-emerald-500">$</span> {label}
-    </label>
+  <label
+    className={`strip-cell ${error ? "bg-hold/5" : ""} ${className ?? ""}`}
+  >
+    <span className="strip-label">{label}</span>
     {input}
-    {error && (
-      <p className="mt-1 text-xs text-red-400">
-        <span className="select-none">✗ </span>
-        {error}
-      </p>
-    )}
-  </div>
+    {error && <span className="text-sm text-hold">{error}</span>}
+  </label>
 );
