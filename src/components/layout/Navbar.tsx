@@ -3,89 +3,140 @@ import { navlinks } from "@/constants/navlinks";
 import { socials } from "@/constants/socials";
 import { Navlink } from "@/types/navlink";
 import Image from "next/image";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { AnimatePresence, motion } from "framer-motion";
 import { IconMenu2, IconX } from "@tabler/icons-react";
 import { DownloadResumeButton } from "@/components/ui/DownloadResumeButton";
+import { useActiveSection } from "@/components/layout/ActiveSectionProvider";
 
 export const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const pathname = usePathname();
+  const activeSection = useActiveSection();
+  const [heroIdentityVisible, setHeroIdentityVisible] = useState(true);
 
-  const isActive = (href: string) => pathname === href;
+  // The hero already shows the photo and name, so the header only repeats
+  // them once that block has scrolled up behind it.
+  useEffect(() => {
+    const heroIdentity = document.getElementById("hero-identity");
+    if (!heroIdentity) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setHeroIdentityVisible(entry.isIntersecting),
+      { rootMargin: "-64px 0px 0px 0px" }
+    );
+    observer.observe(heroIdentity);
+    return () => observer.disconnect();
+  }, []);
+
+  const isActive = (href: string) => href.replace("#", "") === activeSection;
+
+  const scrollToSection = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    e.preventDefault();
+    document
+      .getElementById(href.replace("#", ""))
+      ?.scrollIntoView({ behavior: "smooth", block: "start" });
+    setMobileOpen(false);
+  };
 
   return (
-    <div className="flex-shrink-0 border-b border-neutral-800 bg-neutral-900/60">
-      <div className="flex items-center gap-4 px-4 py-2.5">
-        <div className="flex items-center gap-2 min-w-0 flex-shrink-0">
-          <Image
-            src="/images/gallery/pic5.jpeg"
-            alt="Avatar"
-            height={32}
-            width={32}
-            className="object-cover object-top rounded-full flex-shrink-0 ring-1 ring-neutral-700"
-          />
-          <div className="hidden sm:flex flex-col leading-tight">
-            <p className="font-bold text-primary text-xs">Srivatsa Nayak</p>
-            <p className="text-[11px] text-secondary">Software Engineer</p>
-          </div>
-        </div>
+    <header className="sticky top-0 z-40 bg-paper/95 backdrop-blur border-b">
+      <nav className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center gap-6">
+        <a
+          href="#home"
+          onClick={(e) => scrollToSection(e, "#home")}
+          aria-label="Srivatsa Nayak — back to top"
+          className="flex items-center h-9 flex-shrink-0"
+        >
+          <AnimatePresence mode="wait" initial={false}>
+            {heroIdentityVisible ? (
+              <motion.span
+                key="monogram"
+                initial={{ opacity: 0, y: 4 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -4 }}
+                transition={{ duration: 0.15 }}
+                className="flex h-9 w-9 items-center justify-center rounded-md bg-ink font-display font-bold text-sm text-white"
+                aria-hidden="true"
+              >
+                SN
+              </motion.span>
+            ) : (
+              <motion.span
+                key="identity"
+                initial={{ opacity: 0, y: 4 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -4 }}
+                transition={{ duration: 0.15 }}
+                className="flex items-center gap-2.5"
+                aria-hidden="true"
+              >
+                <Image
+                  src="/images/gallery/pic5.jpeg"
+                  alt=""
+                  height={36}
+                  width={36}
+                  className="object-cover object-top rounded-full flex-shrink-0 ring-2 ring-sheet"
+                />
+                <span className="font-display font-bold text-lg tracking-tight text-ink">
+                  Srivatsa Nayak
+                </span>
+              </motion.span>
+            )}
+          </AnimatePresence>
+        </a>
 
-        <nav className="hidden md:flex items-center gap-1 flex-1 min-w-0 overflow-x-auto">
+        <ul className="hidden md:flex gap-6 m-0 p-0 list-none ml-auto">
           {navlinks.map((link: Navlink) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={twMerge(
-                "text-secondary hover:text-primary hover:bg-neutral-800/60 transition duration-200 flex items-center gap-1.5 py-1.5 px-2.5 rounded-md text-sm whitespace-nowrap",
-                isActive(link.href) && "bg-neutral-800 text-emerald-400"
-              )}
-            >
-              <link.icon
+            <li key={link.href}>
+              <a
+                href={link.href}
+                onClick={(e) => scrollToSection(e, link.href)}
                 className={twMerge(
-                  "h-3.5 w-3.5 flex-shrink-0",
-                  isActive(link.href) && "text-emerald-400"
+                  "font-display font-semibold text-sm pb-1 border-b-2 transition-colors",
+                  isActive(link.href)
+                    ? "border-magenta text-ink"
+                    : "border-transparent text-ink-soft hover:text-ink"
                 )}
-              />
-              <span className="text-neutral-600 select-none">$</span>
-              <span>{link.label.toLowerCase()}</span>
-              {isActive(link.href) && (
-                <span className="inline-block w-1.5 h-3.5 bg-emerald-400 animate-cursor-blink" />
-              )}
-            </Link>
+              >
+                {link.label}
+              </a>
+            </li>
           ))}
-        </nav>
+        </ul>
 
-        <div className="hidden md:flex items-center gap-3 flex-shrink-0 ml-auto">
+        <div className="hidden md:flex items-center gap-4 flex-shrink-0">
           {socials.map((link: Navlink) => (
-            <Link
+            <a
               key={link.href}
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-secondary hover:text-emerald-400 transition duration-200"
+              aria-label={link.label}
+              className="text-ink-soft hover:text-ink transition-colors"
             >
-              <link.icon className="h-4 w-4" />
-            </Link>
+              <link.icon className="h-5 w-5" />
+            </a>
           ))}
           <DownloadResumeButton />
         </div>
 
         <button
-          className="md:hidden ml-auto h-8 w-8 flex items-center justify-center rounded-md border border-neutral-700 text-neutral-400 flex-shrink-0"
+          className="md:hidden ml-auto h-9 w-9 flex items-center justify-center rounded-md border border-ink text-ink flex-shrink-0"
           onClick={() => setMobileOpen((open) => !open)}
           aria-label="Toggle navigation"
+          aria-expanded={mobileOpen}
         >
           {mobileOpen ? (
-            <IconX className="h-4 w-4" />
+            <IconX className="h-5 w-5" />
           ) : (
-            <IconMenu2 className="h-4 w-4" />
+            <IconMenu2 className="h-5 w-5" />
           )}
         </button>
-      </div>
+      </nav>
 
       <AnimatePresence>
         {mobileOpen && (
@@ -94,40 +145,36 @@ export const Navbar = () => {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.15 }}
-            className="md:hidden overflow-hidden border-t border-neutral-800"
+            className="md:hidden overflow-hidden border-t bg-paper"
           >
-            <div className="flex flex-col gap-1 px-4 py-3">
+            <div className="flex flex-col px-4 py-3">
               {navlinks.map((link: Navlink) => (
-                <Link
+                <a
                   key={link.href}
                   href={link.href}
-                  onClick={() => setMobileOpen(false)}
+                  onClick={(e) => scrollToSection(e, link.href)}
                   className={twMerge(
-                    "text-secondary hover:text-primary hover:bg-neutral-800/60 transition duration-200 flex items-center gap-2 py-2 px-2 rounded-md text-sm",
-                    isActive(link.href) && "bg-neutral-800 text-emerald-400"
+                    "font-display font-semibold text-base py-2 pl-3 border-l-2 transition-colors",
+                    isActive(link.href)
+                      ? "border-magenta text-ink"
+                      : "border-transparent text-ink-soft hover:text-ink"
                   )}
                 >
-                  <link.icon
-                    className={twMerge(
-                      "h-4 w-4 flex-shrink-0",
-                      isActive(link.href) && "text-emerald-400"
-                    )}
-                  />
-                  <span className="text-neutral-600 select-none">$</span>
-                  <span>{link.label.toLowerCase()}</span>
-                </Link>
+                  {link.label}
+                </a>
               ))}
-              <div className="flex items-center gap-4 pt-3 mt-2 border-t border-neutral-800">
+              <div className="flex items-center gap-4 pt-3 mt-2 border-t">
                 {socials.map((link: Navlink) => (
-                  <Link
+                  <a
                     key={link.href}
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-secondary hover:text-emerald-400 transition duration-200"
+                    aria-label={link.label}
+                    className="text-ink-soft hover:text-ink transition-colors"
                   >
-                    <link.icon className="h-4 w-4" />
-                  </Link>
+                    <link.icon className="h-5 w-5" />
+                  </a>
                 ))}
                 <DownloadResumeButton className="ml-auto" />
               </div>
@@ -135,6 +182,6 @@ export const Navbar = () => {
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </header>
   );
 };

@@ -1,87 +1,45 @@
 import Image from "next/image";
 import React from "react";
 import { Heading } from "@/components/ui/Heading";
-import { twMerge } from "tailwind-merge";
+import { skills } from "@/constants/skills";
 
 export const TechStack = () => {
-  const stack = [
-    {
-      title: "React.js",
-      src: "/images/logos/React.svg",
-
-      className: "h-10 w-14",
-    },
-    {
-      title: "Java",
-      src: "/images/logos/java.png",
-
-      className: "h-10 w-10",
-    },
-    {
-      title: "Spring Boot",
-      src: "/images/logos/Spring.svg",
-
-      className: "h-10 w-8",
-    },
-    {
-      title: "Docker",
-      src: "/images/logos/Docker.svg",
-
-      className: "h-12 w-14",
-    },
-    {
-      title: "Node",
-      src: "/images/logos/Node.js.svg",
-
-      className: "h-10 w-12",
-    },
-    {
-      title: "Python",
-      src: "/images/logos/Python.svg",
-
-      className: "h-10 w-16",
-    },
-    {
-      title: "Kubernetes",
-      src: "/images/logos/Kubernetes.svg",
-
-      className: "h-9 w-12",
-    },
-    {
-      title: "AWS",
-      src: "/images/logos/AWS.svg",
-
-      className: "h-12 w-14",
-    },
-    {
-      title: "MongoDB",
-      src: "/images/logos/MongoDB.svg",
-
-      className: "h-12 w-14",
-    },
-  ];
   return (
-    <div>
-      <Heading
-        as="h2"
-        className="font-black text-lg md:text-lg lg:text-lg mt-20 mb-4"
-      >
+    <div className="mt-16">
+      <Heading as="h3" className="mb-4">
         Tech Stack
       </Heading>
-      <div className="flex flex-wrap gap-3">
-        {stack.map((item) => (
+      <div className="bg-sheet border rounded-lg overflow-hidden divide-y">
+        {skills.map((group) => (
           <div
-            key={item.src}
-            title={item.title}
-            className="flex items-center justify-center h-16 w-16 rounded-md border border-neutral-800 bg-neutral-900 p-2"
+            key={group.group}
+            className="grid grid-cols-1 md:grid-cols-[11rem_minmax(0,1fr)] gap-3 md:gap-6 md:items-center px-5 py-4"
           >
-            <Image
-              src={item.src}
-              width={200}
-              height={200}
-              alt={item.title}
-              className={twMerge("object-contain", item.className)}
-            />
+            <p className="font-display font-semibold text-base text-ink">
+              {group.group}
+            </p>
+            <div className="flex flex-wrap gap-x-3 gap-y-4">
+              {group.items.map((item) => (
+                <div
+                  key={item.title}
+                  title={item.title}
+                  className="flex w-[4.75rem] flex-col items-center gap-1.5"
+                >
+                  <div className="flex items-center justify-center h-14 w-14 rounded-lg border bg-paper p-2.5 transition-colors hover:border-ink">
+                    <Image
+                      src={item.src}
+                      width={40}
+                      height={40}
+                      alt={item.title}
+                      className="h-full w-full object-contain"
+                    />
+                  </div>
+                  <span className="text-[11px] leading-tight text-center text-ink-soft">
+                    {item.title}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         ))}
       </div>

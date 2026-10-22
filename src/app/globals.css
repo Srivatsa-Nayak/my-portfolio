@@ -2,22 +2,76 @@
 @tailwind components;
 @tailwind utilities;
 
-::selection {
-  background-color: theme("colors.emerald.500 / 30%");
-  color: theme("colors.emerald.200");
+@layer base {
+  * {
+    @apply border-rule;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-paper text-ink font-sans antialiased;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  h1, h2, h3, h4, h5 {
+    @apply font-display text-ink;
+    line-height: 1.15;
+  }
+  /* Keep anchored sections clear of the sticky header. */
+  section[id] {
+    scroll-margin-top: 5rem;
+  }
+  :focus-visible {
+    outline: 2px solid theme("colors.chart");
+    outline-offset: 2px;
+  }
+  ::selection {
+    background-color: theme("colors.magenta / 15%");
+  }
 }
 
-::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+@layer components {
+  /* A flight progress strip: a coloured holder band on the left, ruled cells to the right. */
+  .strip {
+    @apply relative flex bg-sheet border rounded-lg overflow-hidden;
+    box-shadow: 0 1px 0 theme("colors.rule");
+  }
+  .strip-band {
+    @apply w-2 shrink-0 sm:w-3;
+  }
+  .strip-cell {
+    @apply flex flex-col justify-center gap-1 px-4 py-3 border-rule;
+  }
+  .strip-label {
+    @apply text-sm text-ink-soft;
+  }
+  .strip-input {
+    @apply w-full bg-transparent border-0 p-0 font-display font-semibold text-ink placeholder:text-rule focus:outline-none;
+  }
+  .num {
+    font-variant-numeric: tabular-nums;
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 bg-ink text-white font-display font-semibold text-base rounded-md px-5 py-3 transition-colors hover:bg-chart disabled:opacity-60 disabled:cursor-wait;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 border border-ink text-ink font-display font-semibold text-sm rounded-md px-4 py-2 transition-colors hover:bg-ink hover:text-white;
+  }
+  .panel {
+    @apply bg-sheet border rounded-lg p-5;
+  }
+  .chip {
+    @apply inline-flex items-center border rounded-md bg-paper px-2 py-0.5 text-xs text-ink-soft;
+  }
 }
-::-webkit-scrollbar-track {
-  background: theme("colors.neutral.950");
-}
-::-webkit-scrollbar-thumb {
-  background: theme("colors.neutral.700");
-  border-radius: 9999px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: theme("colors.neutral.600");
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    transition: none !important;
+    animation: none !important;
+  }
 }

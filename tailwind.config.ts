@@ -1,7 +1,4 @@
 import type { Config } from "tailwindcss";
-const {
-  default: flattenColorPalette,
-} = require("tailwindcss/lib/util/flattenColorPalette");
 
 const config: Config = {
   content: [
@@ -12,48 +9,27 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-      },
       colors: {
-        primary: "var(--neutral-200)",
-        secondary: "var(--neutral-400)",
+        // Aeronautical-chart palette
+        paper: "#EEF3F4",
+        sheet: "#FFFFFF",
+        ink: { DEFAULT: "#13293D", soft: "#4A5E70" },
+        rule: "#C9D6DC",
+        magenta: "#B0186A",
+        chart: "#1F5F99",
+        buff: "#C9A227",
+        go: "#2E7D4F",
+        hold: "#B4441C",
       },
+      // JetBrains Mono everywhere; `display` is kept as the heading token so
+      // headings can be given their own face again without touching components.
       fontFamily: {
-        mono: [
-          "var(--font-jetbrains-mono)",
-          "ui-monospace",
-          "SFMono-Regular",
-          "Menlo",
-          "monospace",
-        ],
-      },
-      keyframes: {
-        "cursor-blink": {
-          "0%, 49%": { opacity: "1" },
-          "50%, 100%": { opacity: "0" },
-        },
-      },
-      animation: {
-        "cursor-blink": "cursor-blink 1s steps(1) infinite",
+        display: ["var(--font-jetbrains-mono)", "ui-monospace", "monospace"],
+        sans: ["var(--font-jetbrains-mono)", "ui-monospace", "monospace"],
+        mono: ["var(--font-jetbrains-mono)", "ui-monospace", "monospace"],
       },
     },
   },
-  plugins: [addVariablesForColors],
 } satisfies Config;
-
-// This plugin adds each Tailwind color as a global CSS variable, e.g. var(--gray-200).
-function addVariablesForColors({ addBase, theme }: any) {
-  let allColors = flattenColorPalette(theme("colors"));
-  let newVars = Object.fromEntries(
-    Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
-  );
-
-  addBase({
-    ":root": newVars,
-  });
-}
 
 export default config;
