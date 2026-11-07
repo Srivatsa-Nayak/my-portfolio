@@ -6,6 +6,7 @@ import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 import { ActiveSectionProvider } from "@/components/layout/ActiveSectionProvider";
 import { SITE_URL } from "@/constants/site";
+import { Analytics } from "@vercel/analytics/next";
 
 // Fonts are self-hosted (Latin subset, variable weight; licences in
 // ./fonts/OFL-*.txt). next/font/google in Next 13.4 downloads them on every
@@ -70,6 +71,7 @@ export default function RootLayout({
           {children}
           <Footer />
         </ActiveSectionProvider>
+        <Analytics />
       </body>
     </html>
   );
