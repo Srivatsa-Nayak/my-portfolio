@@ -2,7 +2,6 @@ import { Container } from "@/components/layout/Container";
 import { Heading } from "@/components/ui/Heading";
 import { Highlight } from "@/components/ui/Highlight";
 import { Paragraph } from "@/components/ui/Paragraph";
-import { Reveal } from "@/components/ui/Reveal";
 import { TechStack } from "@/components/sections/TechStack";
 import { Products } from "@/components/sections/Products";
 import { WorkHistory } from "@/components/sections/WorkHistory";
@@ -110,38 +109,30 @@ export default function Home() {
         </section>
 
         <section id="projects" className="border-t pt-16">
-          <Reveal>
-            <SectionHeader
-              title="Projects"
-              intro="Side projects I built end to end, from database to UI."
-            />
-            <Products />
-          </Reveal>
+          <SectionHeader
+            title="Projects"
+            intro="Side projects I built end to end, from database to UI."
+          />
+          <Products />
         </section>
 
         <section id="experience" className="border-t pt-16">
-          <Reveal>
-            <SectionHeader title="Experience" />
-            <WorkHistory />
-          </Reveal>
+          <SectionHeader title="Experience" />
+          <WorkHistory />
         </section>
 
         <section id="about" className="border-t pt-16">
-          <Reveal>
-            <SectionHeader title="About Me" />
-            <About />
-            <TechStack />
-          </Reveal>
+          <SectionHeader title="About Me" />
+          <About />
+          <TechStack />
         </section>
 
         <section id="contact" className="border-t pt-16">
-          <Reveal>
-            <SectionHeader
-              title="Contact Me"
-              intro="I'm open to backend and full-stack roles. Send a message below and I usually reply within two days."
-            />
-            <Contact />
-          </Reveal>
+          <SectionHeader
+            title="Contact Me"
+            intro="I'm open to backend and full-stack roles. Send a message below and I usually reply within two days."
+          />
+          <Contact />
         </section>
       </div>
     </Container>

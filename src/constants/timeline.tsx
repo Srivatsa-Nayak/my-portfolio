@@ -7,21 +7,24 @@ export const timeline = [
     location: "Bangalore, India",
     summary:
       "CloudFrame builds tooling that modernises mainframe COBOL applications into Java. As a Software Engineer, I design and build the Java/Spring Boot services behind that work — improving performance on large mainframe data sets, automating migrations, and deploying and monitoring applications on Kubernetes.",
+    // Titles are topics; each description leads with what was done and ends
+    // with the result. The first three are kept to one line because the hero
+    // results strip (sections/ImpactStrip.tsx) already explains them.
     responsibilities: [
       {
         title: "Mainframe file comparison at scale",
         description:
-          "Built a comparison utility for EBCDIC mainframe files from scratch. Instead of loading entire files into memory, it reads them page by page as the user scrolls, so multi-gigabyte files can be compared reliably. This cut the memory footprint by 95%, and comparisons that previously timed out now complete.",
+          "Built an EBCDIC file comparison utility from scratch that pages through multi-gigabyte files instead of loading them whole: 95% less memory, and comparisons that timed out now complete.",
       },
       {
         title: "Multi-threaded VSAM processing",
         description:
-          "Re-architected VSAM-based applications from a single-threaded to a multi-threaded model so that independent requests are processed in parallel, increasing throughput by 35%.",
+          "Re-architected VSAM-based applications from single- to multi-threaded so independent requests run in parallel: 35% more throughput.",
       },
       {
         title: "Automated Spring Batch migration",
         description:
-          "Designed a Spring Boot utility that automates the migration of Spring Batch jobs into microservices. Applied to more than 10 jobs, it reduced manual migration effort by 60% and shortened release cycles.",
+          "Designed a Spring Boot utility that migrates Spring Batch jobs to microservices, applied to 10+ jobs: 60% less manual migration effort and shorter release cycles.",
       },
       {
         title: "Kubernetes deployment and observability",
@@ -34,14 +37,9 @@ export const timeline = [
           "Architected a WordPress sandbox application backed by REST APIs that gives new customers secure, self-service access to product environments, so they can try the product on their own from day one.",
       },
       {
-        title: "Removed a manual step from every record-layout change",
+        title: "Build-time record lengths",
         description:
-          "Researched and built a utility that converts serialized DTOs into compile-time DTOs, along with a Maven POM property that recalculates record lengths at build time whenever fields are added, removed or changed.",
-      },
-      {
-        title: "Release quality",
-        description:
-          "Found and fixed defects in the code migration process and shipped features in every release I worked on, and each of those releases received positive feedback.",
+          "Researched and built a utility that converts serialized DTOs into compile-time DTOs, along with a Maven POM property that recalculates record lengths at build time whenever fields change — removing a manual step from every record-layout change.",
       },
     ],
   },

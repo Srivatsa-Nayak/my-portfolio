@@ -66,17 +66,6 @@
   }
 }
 
-/* Scroll-in fade. <Reveal> adds .reveal-pending only to blocks that start
-   below the fold, so content stays visible without JavaScript and in
-   screenshots. Reduced motion skips it entirely (see Reveal.tsx). */
-.reveal {
-  transition: opacity 200ms ease-out, transform 200ms ease-out;
-}
-.reveal-pending {
-  opacity: 0;
-  transform: translateY(8px);
-}
-
 /* Mobile nav menu entrance. */
 .menu-enter {
   animation: menu-enter 150ms ease-out;

@@ -1,50 +1,28 @@
-import type { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
-import {
-  IconArrowLeft,
-  IconBrandGithub,
-  IconExternalLink,
-} from "@tabler/icons-react";
 import { Container } from "@/components/layout/Container";
-import { Heading } from "@/components/ui/Heading";
 import { Paragraph } from "@/components/ui/Paragraph";
 import { ArchitectureFlow } from "@/components/ui/ArchitectureFlow";
+import {
+  BulletList,
+  CardGrid,
+  CaseStudyFigure,
+  CaseStudyFooter,
+  CaseStudyHeader,
+  CaseStudySection,
+  NumberedList,
+  caseStudyMetadata,
+} from "@/components/case-study/CaseStudy";
 import { githubProjects } from "@/constants/projects";
 import { ArchNode } from "@/types/products";
+import importDialog from "../../../../public/images/projects/sql-visualizer-import.webp";
 
 const PATH = "/projects/sql-visualizer";
-const TITLE = "SQL Visualizer case study — Srivatsa Nayak";
-const DESCRIPTION =
-  "How I built an ER-diagram editor where every change on the canvas runs as real SQL against a live database: per-file database isolation, multi-dialect import and a Spring Boot API on Azure.";
 
-// Setting openGraph here replaces the root one, which drops the file-based
-// preview image, so point at it explicitly.
-const PREVIEW_IMAGE = {
-  url: "/opengraph-image",
-  width: 1200,
-  height: 630,
-  alt: "Srivatsa Nayak — I build Java backends that bring mainframe workloads into the cloud.",
-};
-
-export const metadata: Metadata = {
-  title: TITLE,
-  description: DESCRIPTION,
-  alternates: { canonical: PATH },
-  openGraph: {
-    type: "article",
-    url: PATH,
-    title: TITLE,
-    description: DESCRIPTION,
-    images: [PREVIEW_IMAGE],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: TITLE,
-    description: DESCRIPTION,
-    images: [PREVIEW_IMAGE],
-  },
-};
+export const metadata = caseStudyMetadata({
+  path: PATH,
+  title: "SQL Visualizer case study — Srivatsa Nayak",
+  description:
+    "How I built an ER-diagram editor where every change on the canvas runs as real SQL against a live database: per-file database isolation, multi-dialect import and a Spring Boot API on Azure.",
+});
 
 // Facts on this page come from the project's README and test suite
 // (github.com/Srivatsa-Nayak/db-viewer); card data is shared with the home page.
@@ -112,11 +90,12 @@ const TRADE_OFFS = [
   "The live demo runs on Azure's free F1 plan, whose filesystem is not durable across restarts — workspace databases there are effectively session-scoped, and users should export what they want to keep.",
 ];
 
-const SectionTitle = ({ id, children }: { id: string; children: string }) => (
-  <Heading as="h2" className="text-2xl sm:text-3xl">
-    <span id={id}>{children}</span>
-  </Heading>
-);
+// Drawn from the limits the README states (see TRADE_OFFS).
+const NEXT_STEPS = [
+  "Back anonymous workspaces with a signed session token instead of the browser-generated X-Client-Id header, so ownership holds even against callers that aren't browsers.",
+  "Restrict CORS to the frontend's own origin; today it is wide open.",
+  "Move workspace databases to durable storage, such as a managed MySQL instance, so files on the live demo survive restarts.",
+];
 
 export default function SqlVisualizerCaseStudy() {
   const hero = project.images[0];
@@ -124,68 +103,14 @@ export default function SqlVisualizerCaseStudy() {
   return (
     <Container>
       <article className="space-y-14">
-        <header>
-          <Link
-            href="/#projects"
-            className="inline-flex items-center gap-1.5 font-display font-semibold text-sm text-chart hover:text-ink transition-colors"
-          >
-            <IconArrowLeft className="h-4 w-4" aria-hidden="true" />
-            All projects
-          </Link>
-          <p className="strip-label mt-8">Case study</p>
-          <Heading className="mt-1 text-3xl sm:text-4xl lg:text-5xl">SQL Visualizer</Heading>
-          <Paragraph className="mt-4 text-lg">
-            An entity-relationship diagram editor where every change on the
-            canvas runs as real SQL against a live database, so the diagram
-            always shows actual state rather than a parsed copy.
-          </Paragraph>
-          <div className="mt-6 flex flex-wrap gap-3">
-            {project.live && (
-              <a
-                href={project.live}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-primary border border-transparent px-4 py-2 text-sm"
-              >
-                <IconExternalLink className="h-4 w-4" />
-                Live demo
-              </a>
-            )}
-            <a
-              href={project.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-secondary"
-            >
-              <IconBrandGithub className="h-4 w-4" />
-              Source code
-            </a>
-          </div>
-          <div className="mt-6 flex flex-wrap gap-2">
-            {project.stack.map((tech) => (
-              <span key={tech} className="chip">
-                {tech}
-              </span>
-            ))}
-          </div>
-        </header>
+        <CaseStudyHeader
+          project={project}
+          lead="An entity-relationship diagram editor where every change on the canvas runs as real SQL against a live database, so the diagram always shows actual state rather than a parsed copy."
+        />
 
-        <figure className="m-0">
-          <div className="border rounded-lg bg-sheet overflow-hidden">
-            <Image
-              src={hero.src}
-              alt={hero.alt}
-              placeholder="blur"
-              priority
-              sizes="(min-width: 1200px) 1104px, calc(100vw - 32px)"
-              className="block w-full h-auto"
-            />
-          </div>
-          <figcaption className="strip-label mt-2">{hero.caption}</figcaption>
-        </figure>
+        <CaseStudyFigure src={hero.src} alt={hero.alt} caption={hero.caption} priority />
 
-        <section aria-labelledby="problem" className="space-y-4">
-          <SectionTitle id="problem">The problem</SectionTitle>
+        <CaseStudySection id="problem" title="The problem">
           <Paragraph>
             A diagram drawn from a parsed copy of a SQL dump is a guess. It can
             show a foreign key the database would reject, and edits made on the
@@ -194,42 +119,25 @@ export default function SqlVisualizerCaseStudy() {
             diagram, and export the result — with the database as the single
             source of truth.
           </Paragraph>
-        </section>
+        </CaseStudySection>
 
-        <section aria-labelledby="constraints" className="space-y-5">
-          <SectionTitle id="constraints">Constraints</SectionTitle>
-          <ul className="grid gap-4 sm:grid-cols-2 list-none p-0 m-0">
-            {CONSTRAINTS.map((item) => (
-              <li key={item.title} className="panel">
-                <h3 className="text-base font-semibold">{item.title}</h3>
-                <p className="mt-2 text-base leading-relaxed text-ink-soft">{item.body}</p>
-              </li>
-            ))}
-          </ul>
-        </section>
+        <CaseStudySection id="constraints" title="Constraints">
+          <CardGrid items={CONSTRAINTS} />
+        </CaseStudySection>
 
-        <section aria-labelledby="approach" className="space-y-5">
-          <SectionTitle id="approach">Approach</SectionTitle>
-          <ol className="space-y-5 list-none p-0 m-0 max-w-3xl">
-            {DECISIONS.map((item, idx) => (
-              <li key={item.title} className="flex gap-4">
-                <span
-                  className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-md bg-ink font-display font-bold text-sm text-white"
-                  aria-hidden="true"
-                >
-                  {idx + 1}
-                </span>
-                <div>
-                  <h3 className="text-lg font-semibold">{item.title}</h3>
-                  <p className="mt-1 text-base leading-relaxed text-ink-soft">{item.body}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </section>
+        <CaseStudySection id="approach" title="Approach">
+          <NumberedList items={DECISIONS} />
+          {/* Captured from the live demo with a sample CSV; the analysis step
+              creates nothing until "Import" is pressed. */}
+          <CaseStudyFigure
+            src={importDialog}
+            alt="SQL Visualizer's import check dialog for a CSV file: each column shows its inferred type, the reason, and sample values; the postcode column stays VARCHAR because values like 01234 have a leading zero."
+            caption="The import check on a sample CSV: postcode stays text, so 01234 keeps its leading zero"
+            wide={false}
+          />
+        </CaseStudySection>
 
-        <section aria-labelledby="architecture" className="space-y-5">
-          <SectionTitle id="architecture">Architecture</SectionTitle>
+        <CaseStudySection id="architecture" title="Architecture">
           <Paragraph>
             One request, from a change on the canvas to the database that backs
             that file. After every write, the canvas re-reads the schema from
@@ -242,44 +150,21 @@ export default function SqlVisualizerCaseStudy() {
               caption="Spring Boot API in the middle three boxes · frontend and API on Azure App Service"
             />
           </div>
-        </section>
+        </CaseStudySection>
 
-        <section aria-labelledby="results" className="space-y-5">
-          <SectionTitle id="results">What shipped</SectionTitle>
-          <ul className="space-y-3 list-none p-0 m-0 max-w-3xl">
-            {RESULTS.map((item) => (
-              <li key={item} className="flex gap-2.5 text-base leading-relaxed">
-                <span className="mt-2.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-magenta" aria-hidden="true" />
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
+        <CaseStudySection id="results" title="What shipped">
+          <BulletList items={RESULTS} />
+        </CaseStudySection>
 
-        <section aria-labelledby="trade-offs" className="space-y-5">
-          <SectionTitle id="trade-offs">Trade-offs</SectionTitle>
-          <ul className="space-y-3 list-none p-0 m-0 max-w-3xl">
-            {TRADE_OFFS.map((item) => (
-              <li key={item} className="flex gap-2.5 text-base leading-relaxed text-ink-soft">
-                <span className="mt-2.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-ink-soft" aria-hidden="true" />
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
+        <CaseStudySection id="trade-offs" title="Trade-offs">
+          <BulletList items={TRADE_OFFS} muted />
+        </CaseStudySection>
 
-        <footer className="border-t pt-8 flex flex-wrap items-center justify-between gap-4">
-          <Link
-            href="/#projects"
-            className="inline-flex items-center gap-1.5 font-display font-semibold text-sm text-chart hover:text-ink transition-colors"
-          >
-            <IconArrowLeft className="h-4 w-4" aria-hidden="true" />
-            All projects
-          </Link>
-          <Link href="/#contact" className="btn-secondary">
-            Get in touch
-          </Link>
-        </footer>
+        <CaseStudySection id="next" title="What I'd do next">
+          <BulletList items={NEXT_STEPS} />
+        </CaseStudySection>
+
+        <CaseStudyFooter />
       </article>
     </Container>
   );

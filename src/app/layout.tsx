@@ -1,12 +1,12 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Analytics } from "@vercel/analytics/next";
 import { twMerge } from "tailwind-merge";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 import { ActiveSectionProvider } from "@/components/layout/ActiveSectionProvider";
 import { SITE_URL } from "@/constants/site";
-import { Analytics } from "@vercel/analytics/next";
 
 // Fonts are self-hosted (Latin subset, variable weight; licences in
 // ./fonts/OFL-*.txt). next/font/google in Next 13.4 downloads them on every
@@ -33,9 +33,11 @@ const plexSans = localFont({
   fallback: ["system-ui", "Segoe UI", "Arial", "sans-serif"],
 });
 
-const TITLE = "Srivatsa Nayak - Software Engineer";
+// Matches the hero positioning; shown as the browser tab title, in search
+// results and on social link previews.
+const TITLE = "Srivatsa Nayak — Java Backend Engineer";
 const DESCRIPTION =
-  "Srivatsa Nayak — Software Engineer building cloud-native backend systems with Java, Spring Boot, microservices and Kubernetes.";
+  "I build Java backends that bring mainframe workloads into the cloud: Spring Boot microservices, Kubernetes and CI/CD. Software engineer at CloudFrame, Bangalore.";
 
 // The preview image itself comes from `opengraph-image.tsx`; Next.js adds the
 // og:image tags, and X/Twitter falls back to og:image for the large card.
@@ -71,6 +73,8 @@ export default function RootLayout({
           {children}
           <Footer />
         </ActiveSectionProvider>
+        {/* Vercel Web Analytics: cookieless page views, only reported on
+            Vercel deployments once Analytics is enabled for the project. */}
         <Analytics />
       </body>
     </html>
