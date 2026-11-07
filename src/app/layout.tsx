@@ -1,6 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { JetBrains_Mono } from "next/font/google";
+import { IBM_Plex_Sans, JetBrains_Mono } from "next/font/google";
 import { twMerge } from "tailwind-merge";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
@@ -10,6 +10,13 @@ const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
   variable: "--font-jetbrains-mono",
+});
+
+// Body text; JetBrains Mono stays on headings, labels, tags and buttons.
+const plexSans = IBM_Plex_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-plex-sans",
 });
 
 const SITE_URL = "https://srivatsa-portfolio.vercel.app";
@@ -45,7 +52,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={twMerge(jetbrainsMono.variable)}>
+      <body className={twMerge(jetbrainsMono.variable, plexSans.variable)}>
         <ActiveSectionProvider>
           <Navbar />
           {children}

@@ -2,6 +2,36 @@ import { timeline } from "@/constants/timeline";
 import React from "react";
 import { IconMapPin } from "@tabler/icons-react";
 import { twMerge } from "tailwind-merge";
+import { ShowMore } from "@/components/ui/ShowMore";
+
+// Bullets shown per role before the rest go behind "Show more".
+const VISIBLE_BULLETS = 4;
+const LIST_CLASS = "max-w-3xl space-y-3 list-none p-0";
+
+type Responsibility = (typeof timeline)[number]["responsibilities"][number];
+
+// Bold percentages so a skimmer catches the results.
+const emphasiseNumbers = (text: string) =>
+  text.split(/(\d+(?:\.\d+)?%)/).map((part, idx) =>
+    idx % 2 === 1 ? (
+      <strong key={idx} className="font-semibold text-ink">
+        {part}
+      </strong>
+    ) : (
+      part
+    )
+  );
+
+const ResponsibilityItem = ({ item }: { item: Responsibility }) => (
+  <li>
+    <span className="font-display font-semibold text-base text-ink">
+      {item.title}
+    </span>
+    <p className="text-base leading-relaxed text-ink-soft">
+      {emphasiseNumbers(item.description)}
+    </p>
+  </li>
+);
 
 // Roles drawn like stations on a route line: the current role gets the green
 // "go" marker, earlier ones the neutral one.
@@ -57,18 +87,25 @@ export const WorkHistory = ({ className }: { className?: string }) => {
               </div>
             </div>
 
-            <p className="mt-4 max-w-3xl text-sm leading-relaxed text-ink-soft">{item.summary}</p>
+            <p className="mt-4 max-w-3xl text-base leading-relaxed text-ink-soft">{item.summary}</p>
 
-            <ul className="mt-4 max-w-3xl space-y-3 list-none p-0 border-t pt-4">
-              {item.responsibilities.map((responsibility) => (
-                <li key={responsibility.title}>
-                  <span className="font-display font-semibold text-base text-ink">
-                    {responsibility.title}
-                  </span>
-                  <p className="text-sm leading-relaxed text-ink-soft">{responsibility.description}</p>
-                </li>
-              ))}
-            </ul>
+            <div className="mt-4 border-t pt-4">
+              <ul className={LIST_CLASS}>
+                {item.responsibilities.slice(0, VISIBLE_BULLETS).map((responsibility) => (
+                  <ResponsibilityItem key={responsibility.title} item={responsibility} />
+                ))}
+              </ul>
+              {item.responsibilities.length > VISIBLE_BULLETS && (
+                <ShowMore
+                  count={item.responsibilities.length - VISIBLE_BULLETS}
+                  listClassName={twMerge(LIST_CLASS, "mt-3")}
+                >
+                  {item.responsibilities.slice(VISIBLE_BULLETS).map((responsibility) => (
+                    <ResponsibilityItem key={responsibility.title} item={responsibility} />
+                  ))}
+                </ShowMore>
+              )}
+            </div>
           </div>
         </li>
       ))}

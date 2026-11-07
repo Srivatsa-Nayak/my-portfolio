@@ -2,12 +2,13 @@ import { Container } from "@/components/layout/Container";
 import { Heading } from "@/components/ui/Heading";
 import { Highlight } from "@/components/ui/Highlight";
 import { Paragraph } from "@/components/ui/Paragraph";
+import { Reveal } from "@/components/ui/Reveal";
 import { TechStack } from "@/components/sections/TechStack";
 import { Products } from "@/components/sections/Products";
 import { WorkHistory } from "@/components/sections/WorkHistory";
 import About from "@/components/sections/About";
 import { Contact } from "@/components/sections/Contact";
-import { ProfileStrip } from "@/components/sections/ProfileStrip";
+import { ImpactStrip } from "@/components/sections/ImpactStrip";
 import Image from "next/image";
 import { IconArrowRight } from "@tabler/icons-react";
 
@@ -20,7 +21,7 @@ const SectionHeader = ({
 }) => (
   <div className="mb-10">
     <Heading as="h2">{title}</Heading>
-    {intro && <Paragraph className="mt-3 max-w-2xl">{intro}</Paragraph>}
+    {intro && <Paragraph className="mt-3">{intro}</Paragraph>}
   </div>
 );
 
@@ -46,54 +47,72 @@ export default function Home() {
           <Heading className="mt-6 max-w-3xl text-3xl sm:text-4xl lg:text-5xl">
             I build Java backends that bring mainframe workloads into the cloud.
           </Heading>
-          <Paragraph className="max-w-2xl mt-5">
+          <Paragraph className="mt-5 text-lg">
             Software engineer at CloudFrame with 3+ years in{" "}
             <Highlight>Java and Spring Boot</Highlight>. I build microservices
             and the CI/CD, container and monitoring setup that keeps them
             running.
           </Paragraph>
+          <p className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 font-display text-sm">
+            <span className="flex items-center gap-2 font-semibold text-go">
+              <span className="h-2.5 w-2.5 rounded-full bg-go" aria-hidden="true" />
+              Open to backend and full-stack roles
+            </span>
+            {/* On phones this wraps to its own line, so the separator is dropped. */}
+            <span className="text-ink-soft">
+              <span className="hidden sm:inline" aria-hidden="true">· </span>
+              Bangalore, India
+            </span>
+          </p>
 
-          <div className="mt-8">
-            <ProfileStrip />
-          </div>
-
-          <div className="mt-5 flex flex-wrap items-center gap-3">
-            <a href="#projects" className="btn-primary">
+          <div className="mt-7 grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:items-center">
+            <a href="#projects" className="btn-primary px-3 text-sm sm:px-5 sm:text-base">
               View projects
               <IconArrowRight className="h-5 w-5" />
             </a>
-            <a href="#contact" className="btn-secondary py-3 text-base">
+            <a href="#contact" className="btn-secondary px-3 py-3 text-sm sm:px-5 sm:text-base">
               Get in touch
             </a>
           </div>
 
-          <TechStack />
-        </section>
-
-        <section id="about" className="border-t pt-16">
-          <SectionHeader title="About Me" />
-          <About />
+          <div className="mt-10">
+            <ImpactStrip />
+          </div>
         </section>
 
         <section id="projects" className="border-t pt-16">
-          <SectionHeader
-            title="Projects"
-            intro="Side projects I built end to end, from database to UI."
-          />
-          <Products />
+          <Reveal>
+            <SectionHeader
+              title="Projects"
+              intro="Side projects I built end to end, from database to UI."
+            />
+            <Products />
+          </Reveal>
         </section>
 
         <section id="experience" className="border-t pt-16">
-          <SectionHeader title="Experience" />
-          <WorkHistory />
+          <Reveal>
+            <SectionHeader title="Experience" />
+            <WorkHistory />
+          </Reveal>
+        </section>
+
+        <section id="about" className="border-t pt-16">
+          <Reveal>
+            <SectionHeader title="About Me" />
+            <About />
+            <TechStack />
+          </Reveal>
         </section>
 
         <section id="contact" className="border-t pt-16">
-          <SectionHeader
-            title="Contact Me"
-            intro="I'm open to backend and full-stack roles. Send a message below and I usually reply within two days."
-          />
-          <Contact />
+          <Reveal>
+            <SectionHeader
+              title="Contact Me"
+              intro="I'm open to backend and full-stack roles. Send a message below and I usually reply within two days."
+            />
+            <Contact />
+          </Reveal>
         </section>
       </div>
     </Container>

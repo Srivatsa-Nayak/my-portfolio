@@ -2,7 +2,6 @@
 import { navlinks } from "@/constants/navlinks";
 import { socials } from "@/constants/socials";
 import { Navlink } from "@/types/navlink";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { AnimatePresence, motion } from "framer-motion";
@@ -15,8 +14,8 @@ export const Navbar = () => {
   const activeSection = useActiveSection();
   const [heroIdentityVisible, setHeroIdentityVisible] = useState(true);
 
-  // The hero already shows the photo and name, so the header only repeats
-  // them once that block has scrolled up behind it.
+  // The hero already shows the name, so the header only repeats it once that
+  // block has scrolled up behind it.
   useEffect(() => {
     const heroIdentity = document.getElementById("hero-identity");
     if (!heroIdentity) return;
@@ -49,44 +48,25 @@ export const Navbar = () => {
           href="#home"
           onClick={(e) => scrollToSection(e, "#home")}
           aria-label="Srivatsa Nayak — back to top"
-          className="flex items-center h-9 flex-shrink-0"
+          className="flex items-center gap-2.5 h-9 flex-shrink-0"
         >
-          <AnimatePresence mode="wait" initial={false}>
-            {heroIdentityVisible ? (
-              <motion.span
-                key="monogram"
-                initial={{ opacity: 0, y: 4 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -4 }}
-                transition={{ duration: 0.15 }}
-                className="flex h-9 w-9 items-center justify-center rounded-md bg-ink font-display font-bold text-sm text-white"
-                aria-hidden="true"
-              >
-                SN
-              </motion.span>
-            ) : (
-              <motion.span
-                key="identity"
-                initial={{ opacity: 0, y: 4 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -4 }}
-                transition={{ duration: 0.15 }}
-                className="flex items-center gap-2.5"
-                aria-hidden="true"
-              >
-                <Image
-                  src="/images/gallery/pic5.jpeg"
-                  alt=""
-                  height={36}
-                  width={36}
-                  className="object-cover object-top rounded-full flex-shrink-0 ring-2 ring-sheet"
-                />
-                <span className="font-display font-bold text-lg tracking-tight text-ink">
-                  Srivatsa Nayak
-                </span>
-              </motion.span>
+          {/* The SN monogram is the site's mark on every screen size (also used
+              in the social preview image). */}
+          <span
+            className="flex h-9 w-9 items-center justify-center rounded-md bg-ink font-display font-bold text-sm text-white"
+            aria-hidden="true"
+          >
+            SN
+          </span>
+          <span
+            className={twMerge(
+              "font-display font-bold text-lg tracking-tight text-ink transition-opacity duration-150",
+              heroIdentityVisible ? "opacity-0" : "opacity-100"
             )}
-          </AnimatePresence>
+            aria-hidden="true"
+          >
+            Srivatsa Nayak
+          </span>
         </a>
 
         <ul className="hidden md:flex gap-6 m-0 p-0 list-none ml-auto">

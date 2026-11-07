@@ -24,24 +24,24 @@ export const timeline = [
           "Designed a Spring Boot utility that automates the migration of Spring Batch jobs into microservices. Applied to more than 10 jobs, it reduced manual migration effort by 60% and shortened release cycles.",
       },
       {
-        title: "Self-service sandbox platform",
-        description:
-          "Architected a WordPress sandbox application backed by REST APIs that gives customers secure, self-service access to product environments, reducing onboarding friction.",
-      },
-      {
-        title: "Build-time DTO generation",
-        description:
-          "Researched and built a utility that converts serialized DTOs into compile-time DTOs, along with a Maven POM property that recalculates record lengths at build time whenever fields are added, removed or changed — removing a manual update step.",
-      },
-      {
         title: "Kubernetes deployment and observability",
         description:
           "Containerised a CICS-based Spring application and deployed it on Kubernetes, with Splunk for centralised logging and Prometheus/Grafana dashboards for metrics. This reduced mean time to debug and enabled proactive incident detection.",
       },
       {
+        title: "Self-service sandbox platform",
+        description:
+          "Architected a WordPress sandbox application backed by REST APIs that gives new customers secure, self-service access to product environments, so they can try the product on their own from day one.",
+      },
+      {
+        title: "Removed a manual step from every record-layout change",
+        description:
+          "Researched and built a utility that converts serialized DTOs into compile-time DTOs, along with a Maven POM property that recalculates record lengths at build time whenever fields are added, removed or changed.",
+      },
+      {
         title: "Release quality",
         description:
-          "Proactively identified and resolved defects in the code migration process, contributing to more reliable releases and fewer rollbacks.",
+          "Found and fixed defects in the code migration process and shipped features in every release I worked on, and each of those releases received positive feedback.",
       },
     ],
   },
@@ -62,7 +62,7 @@ export const timeline = [
       {
         title: "Code analysis tool",
         description:
-          "Built a full-stack text manipulation tool (React + Spring Boot) that automates parts of code analysis, significantly reducing the time needed to identify issues across projects.",
+          "Built a full-stack text manipulation tool (React + Spring Boot) that automates parts of code analysis. Issues it finds are fixed automatically instead of by hand, saving about half a day on every analysis.",
       },
     ],
   },

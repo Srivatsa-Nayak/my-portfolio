@@ -21,11 +21,11 @@ const config: Config = {
         go: "#2E7D4F",
         hold: "#B4441C",
       },
-      // JetBrains Mono everywhere; `display` is kept as the heading token so
-      // headings can be given their own face again without touching components.
+      // IBM Plex Sans for body text; JetBrains Mono for headings (`display`),
+      // labels, tags and buttons.
       fontFamily: {
         display: ["var(--font-jetbrains-mono)", "ui-monospace", "monospace"],
-        sans: ["var(--font-jetbrains-mono)", "ui-monospace", "monospace"],
+        sans: ["var(--font-plex-sans)", "ui-sans-serif", "system-ui", "sans-serif"],
         mono: ["var(--font-jetbrains-mono)", "ui-monospace", "monospace"],
       },
     },
