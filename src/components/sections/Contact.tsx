@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { CopyEmailButton } from "@/components/ui/CopyEmailButton";
+import { EMAIL } from "@/constants/socials";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -133,7 +134,7 @@ export const Contact = () => {
             input={
               <input
                 type="text"
-                placeholder="Ada Lovelace"
+                placeholder="Srivatsa Nayak"
                 className="strip-input text-lg"
                 aria-invalid={!!formData.name.error}
                 value={formData.name.value}
@@ -154,7 +155,7 @@ export const Contact = () => {
             input={
               <input
                 type="email"
-                placeholder="ada@example.com"
+                placeholder={EMAIL}
                 className="strip-input text-lg"
                 aria-invalid={!!formData.email.error}
                 value={formData.email.value}
