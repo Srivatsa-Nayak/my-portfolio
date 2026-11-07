@@ -10,7 +10,7 @@ export const Paragraph = ({
   children: React.ReactNode;
 }) => {
   return (
-    <p className={twMerge("text-sm sm:text-base leading-relaxed text-ink-soft", className)}>
+    <p className={twMerge("max-w-prose text-base leading-relaxed text-ink-soft", className)}>
       {children}
     </p>
   );

@@ -3,46 +3,37 @@ import React from "react";
 import { Heading } from "@/components/ui/Heading";
 import { skills } from "@/constants/skills";
 
+// Skills as compact, grouped chips (a small logo plus the name).
 export const TechStack = () => {
   return (
-    <div className="mt-16">
+    <div className="mt-14">
       <Heading as="h3" className="mb-4">
-        Tech Stack
+        Skills
       </Heading>
-      <div className="bg-sheet border rounded-lg overflow-hidden divide-y">
+      <dl className="m-0 bg-sheet border rounded-lg divide-y">
         {skills.map((group) => (
           <div
             key={group.group}
-            className="grid grid-cols-1 md:grid-cols-[11rem_minmax(0,1fr)] gap-3 md:gap-6 md:items-center px-5 py-4"
+            className="grid grid-cols-1 sm:grid-cols-[10rem_minmax(0,1fr)] gap-2 sm:gap-6 sm:items-center px-5 py-3"
           >
-            <p className="font-display font-semibold text-base text-ink">
-              {group.group}
-            </p>
-            <div className="flex flex-wrap gap-x-3 gap-y-4">
+            <dt className="strip-label">{group.group}</dt>
+            <dd className="m-0 flex flex-wrap gap-2">
               {group.items.map((item) => (
-                <div
-                  key={item.title}
-                  title={item.title}
-                  className="flex w-[4.75rem] flex-col items-center gap-1.5"
-                >
-                  <div className="flex items-center justify-center h-14 w-14 rounded-lg border bg-paper p-2.5 transition-colors hover:border-ink">
-                    <Image
-                      src={item.src}
-                      width={40}
-                      height={40}
-                      alt={item.title}
-                      className="h-full w-full object-contain"
-                    />
-                  </div>
-                  <span className="text-[11px] leading-tight text-center text-ink-soft">
-                    {item.title}
-                  </span>
-                </div>
+                <span key={item.title} className="chip gap-1.5 py-1 text-sm text-ink">
+                  <Image
+                    src={item.src}
+                    width={16}
+                    height={16}
+                    alt=""
+                    className="h-4 w-4 object-contain"
+                  />
+                  {item.title}
+                </span>
               ))}
-            </div>
+            </dd>
           </div>
         ))}
-      </div>
+      </dl>
     </div>
   );
 };

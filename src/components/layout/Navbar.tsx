@@ -2,10 +2,10 @@
 import { navlinks } from "@/constants/navlinks";
 import { socials } from "@/constants/socials";
 import { Navlink } from "@/types/navlink";
-import Image from "next/image";
 import { useEffect, useState } from "react";
+import { flushSync } from "react-dom";
+import { usePathname } from "next/navigation";
 import { twMerge } from "tailwind-merge";
-import { AnimatePresence, motion } from "framer-motion";
 import { IconMenu2, IconX } from "@tabler/icons-react";
 import { DownloadResumeButton } from "@/components/ui/DownloadResumeButton";
 import { useActiveSection } from "@/components/layout/ActiveSectionProvider";
@@ -15,11 +15,16 @@ export const Navbar = () => {
   const activeSection = useActiveSection();
   const [heroIdentityVisible, setHeroIdentityVisible] = useState(true);
 
-  // The hero already shows the photo and name, so the header only repeats
-  // them once that block has scrolled up behind it.
+  const pathname = usePathname();
+
+  // The hero already shows the name, so the header only repeats it once that
+  // block has scrolled up behind it. Pages without the hero always show it.
   useEffect(() => {
     const heroIdentity = document.getElementById("hero-identity");
-    if (!heroIdentity) return;
+    if (!heroIdentity) {
+      setHeroIdentityVisible(false);
+      return;
+    }
 
     const observer = new IntersectionObserver(
       ([entry]) => setHeroIdentityVisible(entry.isIntersecting),
@@ -27,73 +32,61 @@ export const Navbar = () => {
     );
     observer.observe(heroIdentity);
     return () => observer.disconnect();
-  }, []);
+  }, [pathname]);
 
   const isActive = (href: string) => href.replace("#", "") === activeSection;
 
+  // Links point at "/#section" so they work from other pages too; on the home
+  // page the section exists, so scroll to it in place instead.
   const scrollToSection = (
     e: React.MouseEvent<HTMLAnchorElement>,
     href: string
   ) => {
+    const target = document.getElementById(href.replace("#", ""));
+    if (!target) {
+      setMobileOpen(false);
+      return;
+    }
     e.preventDefault();
-    document
-      .getElementById(href.replace("#", ""))
-      ?.scrollIntoView({ behavior: "smooth", block: "start" });
-    setMobileOpen(false);
+    // Close the mobile menu before measuring: it sits in the sticky header,
+    // so scrolling while it's open would land a menu-height past the section.
+    flushSync(() => setMobileOpen(false));
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   return (
     <header className="sticky top-0 z-40 bg-paper/95 backdrop-blur border-b">
       <nav className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center gap-6">
         <a
-          href="#home"
+          href="/#home"
           onClick={(e) => scrollToSection(e, "#home")}
           aria-label="Srivatsa Nayak — back to top"
-          className="flex items-center h-9 flex-shrink-0"
+          className="flex items-center gap-2.5 h-9 flex-shrink-0"
         >
-          <AnimatePresence mode="wait" initial={false}>
-            {heroIdentityVisible ? (
-              <motion.span
-                key="monogram"
-                initial={{ opacity: 0, y: 4 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -4 }}
-                transition={{ duration: 0.15 }}
-                className="flex h-9 w-9 items-center justify-center rounded-md bg-ink font-display font-bold text-sm text-white"
-                aria-hidden="true"
-              >
-                SN
-              </motion.span>
-            ) : (
-              <motion.span
-                key="identity"
-                initial={{ opacity: 0, y: 4 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -4 }}
-                transition={{ duration: 0.15 }}
-                className="flex items-center gap-2.5"
-                aria-hidden="true"
-              >
-                <Image
-                  src="/images/gallery/pic5.jpeg"
-                  alt=""
-                  height={36}
-                  width={36}
-                  className="object-cover object-top rounded-full flex-shrink-0 ring-2 ring-sheet"
-                />
-                <span className="font-display font-bold text-lg tracking-tight text-ink">
-                  Srivatsa Nayak
-                </span>
-              </motion.span>
+          {/* The SN monogram is the site's mark on every screen size (also used
+              in the social preview image). */}
+          <span
+            className="flex h-9 w-9 items-center justify-center rounded-md bg-ink font-display font-bold text-sm text-white"
+            aria-hidden="true"
+          >
+            SN
+          </span>
+          <span
+            className={twMerge(
+              "font-display font-bold text-lg tracking-tight text-ink transition-opacity duration-150",
+              heroIdentityVisible ? "opacity-0" : "opacity-100"
             )}
-          </AnimatePresence>
+            aria-hidden="true"
+          >
+            Srivatsa Nayak
+          </span>
         </a>
 
         <ul className="hidden md:flex gap-6 m-0 p-0 list-none ml-auto">
           {navlinks.map((link: Navlink) => (
             <li key={link.href}>
               <a
-                href={link.href}
+                href={`/${link.href}`}
                 onClick={(e) => scrollToSection(e, link.href)}
                 className={twMerge(
                   "font-display font-semibold text-sm pb-1 border-b-2 transition-colors",
@@ -138,20 +131,15 @@ export const Navbar = () => {
         </button>
       </nav>
 
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.15 }}
-            className="md:hidden overflow-hidden border-t bg-paper"
-          >
+      {mobileOpen && (
+          // CSS-only entrance (see .menu-enter in globals.css), so the site
+          // ships no animation library.
+          <div className="menu-enter md:hidden border-t bg-paper">
             <div className="flex flex-col px-4 py-3">
               {navlinks.map((link: Navlink) => (
                 <a
                   key={link.href}
-                  href={link.href}
+                  href={`/${link.href}`}
                   onClick={(e) => scrollToSection(e, link.href)}
                   className={twMerge(
                     "font-display font-semibold text-base py-2 pl-3 border-l-2 transition-colors",
@@ -179,9 +167,8 @@ export const Navbar = () => {
                 <DownloadResumeButton className="ml-auto" />
               </div>
             </div>
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
     </header>
   );
 };

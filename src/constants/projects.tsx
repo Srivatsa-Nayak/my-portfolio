@@ -15,19 +15,60 @@ import blogPlatformEditor from "../../public/images/projects/blog-platform-edito
 
 export const githubProjects: Product[] = [
   {
+    title: "SQL Visualizer",
+    tagline: "Interactive ER-diagram editor backed by a live database",
+    description:
+      "Import a .sql or .csv file and edit its schema as an entity-relationship diagram — every change on the canvas runs as real DDL/DML against a live database.",
+    highlights: [
+      "Reads MySQL, MariaDB, PostgreSQL and SQL Server dumps, translating vendor types and keys into a working schema",
+      "Isolates every open file in its own database via a per-workspace DataSource, created lazily and cached",
+      "171 JUnit 5 / MockMvc tests and path-filtered GitHub Actions CI/CD deploying to Azure",
+    ],
+    href: "https://github.com/Srivatsa-Nayak/db-viewer",
+    live: "https://db-viewer-ui-srivatsa.azurewebsites.net",
+    caseStudy: "/projects/sql-visualizer",
+    stack: ["Java 17", "Spring Boot", "JdbcTemplate", "SQLite / MySQL", "Next.js", "React Flow"],
+    architecture: [
+      [{ label: "Next.js", detail: "React Flow canvas" }],
+      [{ label: "Spring Boot API", detail: "one DataSource per file" }],
+      [{ label: "SQLite / MySQL", detail: "a database per open file" }],
+    ],
+    hosting: "Frontend and API on Azure App Service",
+    images: [
+      {
+        src: sqlVisualizerCanvas,
+        alt: "SQL Visualizer editor showing an online-store schema as an ER diagram with foreign-key relationships",
+        caption: "Editor — schema rendered from live database metadata",
+      },
+      {
+        src: sqlVisualizerLanding,
+        alt: "SQL Visualizer landing page with an animated interactive schema canvas",
+        caption: "Landing page with a live, draggable demo canvas",
+      },
+    ],
+  },
+  {
     title: "Resume Builder",
     tagline: "AI-assisted resume builder with ATS scoring and PDF import/export",
     description:
-      "A full-stack app for writing resumes that get past applicant tracking systems. Users fill in a step-by-step editor with a live preview, pick from 28 ATS-friendly templates, import an existing PDF, and score the result against a job description — with an AI assistant to write and improve bullets along the way.",
+      "A full-stack app for writing ATS-friendly resumes: a step-by-step editor with live preview, 28 templates, PDF import, and scoring against a job description.",
     highlights: [
       "ATS scoring engine: job-description keyword extraction with aliases (k8s → Kubernetes), required vs. nice-to-have weighting and 17 structural checks",
-      "PDF import via pdf.js with two-column detection and AI or heuristic parsing, plus Tesseract OCR fallback for scanned files",
-      "AI requests routed through the user's own encrypted key (AES-256-GCM), then a rate-limited platform key, then an offline assistant",
-      "PDF export with embedded fonts so text stays selectable; 86 Vitest tests, including a PDF round trip for all 28 templates",
+      "AI features use the user's own encrypted key (AES-256-GCM), fall back to a rate-limited shared key, then to an offline mode",
+      "PDF import with OCR fallback for scanned files, and export with selectable text; 86 Vitest tests, including a PDF round trip for all 28 templates",
     ],
     href: "https://github.com/Srivatsa-Nayak/resume-builder",
     live: "https://resume-builder-green-beta-85.vercel.app/",
-    stack: ["Next.js 16", "React 19", "TypeScript", "Prisma", "PostgreSQL", "Tailwind CSS", "react-pdf", "Vitest"],
+    stack: ["Next.js 16", "React 19", "TypeScript", "Prisma", "PostgreSQL", "Vitest"],
+    architecture: [
+      [{ label: "React 19 UI", detail: "editor + live preview" }],
+      [{ label: "Next.js API routes", detail: "ATS scoring, PDF import" }],
+      [
+        { label: "PostgreSQL", detail: "via Prisma" },
+        { label: "AI provider", detail: "user key → shared → offline", external: true },
+      ],
+    ],
+    hosting: "Deployed on Vercel",
     images: [
       {
         src: resumeBuilderEditor,
@@ -57,45 +98,26 @@ export const githubProjects: Product[] = [
     ],
   },
   {
-    title: "SQL Visualizer",
-    tagline: "Interactive ER-diagram editor backed by a live database",
-    description:
-      "Import a .sql or .csv file and its schema is rendered as an editable entity-relationship diagram. Every change on the canvas — new tables, columns, foreign keys, row edits — runs as real DDL/DML against a database, so the diagram always reflects actual state rather than a parsed copy.",
-    highlights: [
-      "Reads MySQL, MariaDB, PostgreSQL and SQL Server dumps, translating vendor types and keys into a working schema",
-      "Isolates every open file in its own database via a per-workspace DataSource, created lazily and cached",
-      "Exports to six SQL dialects, Mermaid and DBML; includes an AI schema assistant that sees structure, never data",
-      "81 JUnit 5 / MockMvc tests and path-filtered GitHub Actions CI/CD deploying to Azure",
-    ],
-    href: "https://github.com/Srivatsa-Nayak/db-viewer",
-    live: "https://db-viewer-ui-srivatsa.azurewebsites.net",
-    stack: ["Java 17", "Spring Boot", "JdbcTemplate", "SQLite / MySQL", "Next.js", "TypeScript", "React Flow"],
-    images: [
-      {
-        src: sqlVisualizerCanvas,
-        alt: "SQL Visualizer editor showing an online-store schema as an ER diagram with foreign-key relationships",
-        caption: "Editor — schema rendered from live database metadata",
-      },
-      {
-        src: sqlVisualizerLanding,
-        alt: "SQL Visualizer landing page with an animated interactive schema canvas",
-        caption: "Landing page with a live, draggable demo canvas",
-      },
-    ],
-  },
-  {
     title: "Route Check — Flight Navigation",
     tagline: "Weather-aware route safety and rerouting · Finalist, Airbus Aerothon 6.0",
     description:
-      "A flight-planning tool that checks wind and visibility at the departure airport, every city along the route and the destination, then returns a go / hold / reroute / divert verdict. When a route is unsafe, it builds a graph of nearby airports using only legs within weather limits and finds the shortest safe alternate with Dijkstra's algorithm.",
+      "Checks wind and visibility at every stop on a flight route, returns a go / hold / reroute / divert verdict, and finds the shortest safe alternate with Dijkstra's algorithm.",
     highlights: [
       "Express REST API aggregating weather, airport and fuel-burn data from five external services",
-      "Mock mode with built-in demo data so the full stack runs without API keys",
       "Containerised frontend, backend and MySQL; Helm chart deploys the stack to OpenShift",
       "GitHub Actions pipeline publishes versioned images and the Helm chart to GHCR",
     ],
     href: "https://github.com/Srivatsa-Nayak/Aerothon-6.0",
-    stack: ["React", "Node.js", "Express", "MySQL", "Leaflet", "Docker", "Helm", "OpenShift"],
+    stack: ["React", "Node.js", "Express", "Docker", "Helm", "OpenShift"],
+    architecture: [
+      [{ label: "React + Vite", detail: "served by nginx" }],
+      [{ label: "Express API", detail: "Dijkstra rerouting" }],
+      [
+        { label: "MySQL", detail: "airports, weather" },
+        { label: "5 external APIs", detail: "or built-in mock data", external: true },
+      ],
+    ],
+    hosting: "Three containers on OpenShift via Helm",
     images: [
       {
         src: routeCheckVerdict,
@@ -113,15 +135,20 @@ export const githubProjects: Product[] = [
     title: "Blog Platform",
     tagline: "Secure Spring Boot REST API with a Next.js frontend",
     description:
-      "A full-stack blogging platform where visitors read posts, registered users comment, and administrators manage posts and categories. The Spring Boot API is secured with stateless JWT authentication and role-based access control, and is documented end to end with OpenAPI.",
+      "A blogging platform whose Spring Boot REST API is secured with stateless JWT and role-based access, documented with OpenAPI, and served through a Next.js frontend.",
     highlights: [
       "Versioned /api/v1 endpoints with pagination, sorting, Bean Validation and consistent error responses",
       "Spring Security + JWT with ROLE_USER / ROLE_ADMIN authorisation enforced per endpoint",
       "Runs on embedded H2 out of the box, or MySQL via Spring profiles and Docker Compose",
-      "Next.js frontend proxies /api to Spring Boot, so no CORS configuration is required",
     ],
     href: "https://github.com/Srivatsa-Nayak/springboot-restful-webservices",
-    stack: ["Java", "Spring Boot", "Spring Security", "JWT", "JPA / Hibernate", "MySQL", "Next.js", "Docker"],
+    stack: ["Java", "Spring Boot", "Spring Security", "JPA / Hibernate", "MySQL", "Next.js"],
+    architecture: [
+      [{ label: "Next.js", detail: "proxies /api, no CORS" }],
+      [{ label: "Spring Boot API", detail: "Spring Security + JWT" }],
+      [{ label: "H2 / MySQL", detail: "Spring Data JPA" }],
+    ],
+    hosting: "Runs locally or with Docker Compose",
     images: [
       {
         src: blogPlatformHome,
@@ -147,7 +174,7 @@ export const otherProjects: OtherProject[] = [
     title: "Multi-Modal Bank Authentication",
     description:
       "Bank authentication combining facial and voice recognition with deep learning; 96.38% accuracy on the Labeled Faces in the Wild benchmark.",
-    href: "https://github.com/Srivatsa-Nayak/Mutli-Modal-Auth-Project",
+    href: "https://github.com/Srivatsa-Nayak/Multi-Modal-Auth-Project",
     stack: ["Python", "Deep Learning"],
   },
   {

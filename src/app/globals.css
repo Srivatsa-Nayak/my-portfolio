@@ -12,7 +12,7 @@
   body {
     @apply bg-paper text-ink font-sans antialiased;
     font-size: 16px;
-    line-height: 1.5;
+    line-height: 1.6;
   }
   h1, h2, h3, h4, h5 {
     @apply font-display text-ink;
@@ -44,7 +44,7 @@
     @apply flex flex-col justify-center gap-1 px-4 py-3 border-rule;
   }
   .strip-label {
-    @apply text-sm text-ink-soft;
+    @apply font-mono text-sm text-ink-soft;
   }
   .strip-input {
     @apply w-full bg-transparent border-0 p-0 font-display font-semibold text-ink placeholder:text-rule focus:outline-none;
@@ -62,7 +62,29 @@
     @apply bg-sheet border rounded-lg p-5;
   }
   .chip {
-    @apply inline-flex items-center border rounded-md bg-paper px-2 py-0.5 text-xs text-ink-soft;
+    @apply inline-flex items-center font-mono border rounded-md bg-paper px-2 py-0.5 text-xs text-ink-soft;
+  }
+}
+
+/* Scroll-in fade. <Reveal> adds .reveal-pending only to blocks that start
+   below the fold, so content stays visible without JavaScript and in
+   screenshots. Reduced motion skips it entirely (see Reveal.tsx). */
+.reveal {
+  transition: opacity 200ms ease-out, transform 200ms ease-out;
+}
+.reveal-pending {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+/* Mobile nav menu entrance. */
+.menu-enter {
+  animation: menu-enter 150ms ease-out;
+}
+@keyframes menu-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
   }
 }
 
