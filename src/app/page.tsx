@@ -10,7 +10,32 @@ import About from "@/components/sections/About";
 import { Contact } from "@/components/sections/Contact";
 import { ImpactStrip } from "@/components/sections/ImpactStrip";
 import Image from "next/image";
+import type { Metadata } from "next";
 import { IconArrowRight } from "@tabler/icons-react";
+import { SITE_URL } from "@/constants/site";
+import { socials } from "@/constants/socials";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
+
+// Structured data so search engines can show a profile card.
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Srivatsa Nayak",
+  url: SITE_URL,
+  image: `${SITE_URL}/images/gallery/pic5.jpeg`,
+  jobTitle: "Software Engineer",
+  worksFor: { "@type": "Organization", name: "CloudFrame Inc." },
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Bangalore",
+    addressCountry: "IN",
+  },
+  knowsAbout: ["Java", "Spring Boot", "Microservices", "Kubernetes", "Mainframe modernisation"],
+  sameAs: socials.map((link) => link.href),
+};
 
 const SectionHeader = ({
   title,
@@ -28,6 +53,10 @@ const SectionHeader = ({
 export default function Home() {
   return (
     <Container>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+      />
       <div className="space-y-20 md:space-y-24">
         <section id="home">
           {/* Navbar watches this block: it shows the name only once this has scrolled away. */}

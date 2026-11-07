@@ -22,11 +22,18 @@ export const githubProjects: Product[] = [
     highlights: [
       "Reads MySQL, MariaDB, PostgreSQL and SQL Server dumps, translating vendor types and keys into a working schema",
       "Isolates every open file in its own database via a per-workspace DataSource, created lazily and cached",
-      "81 JUnit 5 / MockMvc tests and path-filtered GitHub Actions CI/CD deploying to Azure",
+      "171 JUnit 5 / MockMvc tests and path-filtered GitHub Actions CI/CD deploying to Azure",
     ],
     href: "https://github.com/Srivatsa-Nayak/db-viewer",
     live: "https://db-viewer-ui-srivatsa.azurewebsites.net",
+    caseStudy: "/projects/sql-visualizer",
     stack: ["Java 17", "Spring Boot", "JdbcTemplate", "SQLite / MySQL", "Next.js", "React Flow"],
+    architecture: [
+      [{ label: "Next.js", detail: "React Flow canvas" }],
+      [{ label: "Spring Boot API", detail: "one DataSource per file" }],
+      [{ label: "SQLite / MySQL", detail: "a database per open file" }],
+    ],
+    hosting: "Frontend and API on Azure App Service",
     images: [
       {
         src: sqlVisualizerCanvas,
@@ -53,6 +60,15 @@ export const githubProjects: Product[] = [
     href: "https://github.com/Srivatsa-Nayak/resume-builder",
     live: "https://resume-builder-green-beta-85.vercel.app/",
     stack: ["Next.js 16", "React 19", "TypeScript", "Prisma", "PostgreSQL", "Vitest"],
+    architecture: [
+      [{ label: "React 19 UI", detail: "editor + live preview" }],
+      [{ label: "Next.js API routes", detail: "ATS scoring, PDF import" }],
+      [
+        { label: "PostgreSQL", detail: "via Prisma" },
+        { label: "AI provider", detail: "user key → shared → offline", external: true },
+      ],
+    ],
+    hosting: "Deployed on Vercel",
     images: [
       {
         src: resumeBuilderEditor,
@@ -93,6 +109,15 @@ export const githubProjects: Product[] = [
     ],
     href: "https://github.com/Srivatsa-Nayak/Aerothon-6.0",
     stack: ["React", "Node.js", "Express", "Docker", "Helm", "OpenShift"],
+    architecture: [
+      [{ label: "React + Vite", detail: "served by nginx" }],
+      [{ label: "Express API", detail: "Dijkstra rerouting" }],
+      [
+        { label: "MySQL", detail: "airports, weather" },
+        { label: "5 external APIs", detail: "or built-in mock data", external: true },
+      ],
+    ],
+    hosting: "Three containers on OpenShift via Helm",
     images: [
       {
         src: routeCheckVerdict,
@@ -118,6 +143,12 @@ export const githubProjects: Product[] = [
     ],
     href: "https://github.com/Srivatsa-Nayak/springboot-restful-webservices",
     stack: ["Java", "Spring Boot", "Spring Security", "JPA / Hibernate", "MySQL", "Next.js"],
+    architecture: [
+      [{ label: "Next.js", detail: "proxies /api, no CORS" }],
+      [{ label: "Spring Boot API", detail: "Spring Security + JWT" }],
+      [{ label: "H2 / MySQL", detail: "Spring Data JPA" }],
+    ],
+    hosting: "Runs locally or with Docker Compose",
     images: [
       {
         src: blogPlatformHome,
@@ -143,7 +174,7 @@ export const otherProjects: OtherProject[] = [
     title: "Multi-Modal Bank Authentication",
     description:
       "Bank authentication combining facial and voice recognition with deep learning; 96.38% accuracy on the Labeled Faces in the Wild benchmark.",
-    href: "https://github.com/Srivatsa-Nayak/Mutli-Modal-Auth-Project",
+    href: "https://github.com/Srivatsa-Nayak/Multi-Modal-Auth-Project",
     stack: ["Python", "Deep Learning"],
   },
   {

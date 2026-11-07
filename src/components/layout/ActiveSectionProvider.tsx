@@ -1,5 +1,6 @@
 "use client";
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
 const ActiveSectionContext = createContext<string>("home");
 
@@ -16,12 +17,18 @@ export const ActiveSectionProvider = ({
   children: React.ReactNode;
 }) => {
   const [active, setActive] = useState("home");
+  // The provider lives in the root layout, which persists across client-side
+  // navigation, so re-collect the sections whenever the route changes.
+  const pathname = usePathname();
 
   useEffect(() => {
     const sections = Array.from(
       document.querySelectorAll<HTMLElement>("section[id]")
     );
-    if (sections.length === 0) return;
+    if (sections.length === 0) {
+      setActive("");
+      return;
+    }
 
     let frame = 0;
 
@@ -57,7 +64,7 @@ export const ActiveSectionProvider = ({
       window.removeEventListener("resize", schedule);
       if (frame) cancelAnimationFrame(frame);
     };
-  }, []);
+  }, [pathname]);
 
   return (
     <ActiveSectionContext.Provider value={active}>

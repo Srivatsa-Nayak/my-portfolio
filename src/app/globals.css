@@ -77,6 +77,17 @@
   transform: translateY(8px);
 }
 
+/* Mobile nav menu entrance. */
+.menu-enter {
+  animation: menu-enter 150ms ease-out;
+}
+@keyframes menu-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

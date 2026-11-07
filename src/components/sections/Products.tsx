@@ -1,15 +1,16 @@
-"use client";
-import React, { useState } from "react";
-import Image from "next/image";
+import React from "react";
+import Link from "next/link";
 import { Product } from "@/types/products";
 import { githubProjects, otherProjects } from "@/constants/projects";
 import {
   IconArrowUpRight,
   IconBrandGithub,
   IconExternalLink,
+  IconFileText,
 } from "@tabler/icons-react";
 import { twMerge } from "tailwind-merge";
-
+import { ArchitectureFlow } from "@/components/ui/ArchitectureFlow";
+import { ProjectScreenshots } from "@/components/sections/ProjectScreenshots";
 
 export const Products = () => {
   return (
@@ -21,9 +22,17 @@ export const Products = () => {
               className="strip-band h-2 w-full md:h-auto md:w-3 bg-magenta"
               aria-hidden="true"
             />
-            <div className="flex-1 min-w-0 grid grid-cols-1 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] gap-6 lg:gap-8 p-5">
-              <Screenshots product={product} />
-              <ProjectDetails product={product} />
+            {/* Phones: screenshots, details, diagram. Desktop: screenshots and
+                diagram in the left column, details on the right. */}
+            <div className="flex-1 min-w-0 grid grid-cols-1 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:grid-rows-[auto_1fr] gap-6 lg:gap-x-8 p-5">
+              <ProjectScreenshots images={product.images} />
+              <div className="lg:row-span-2">
+                <ProjectDetails product={product} />
+              </div>
+              <div className="lg:col-start-1">
+                <p className="strip-label mb-2">Architecture</p>
+                <ArchitectureFlow tiers={product.architecture} caption={product.hosting} />
+              </div>
             </div>
           </article>
         ))}
@@ -54,56 +63,8 @@ export const Products = () => {
   );
 };
 
-const Screenshots = ({ product }: { product: Product }) => {
-  const [active, setActive] = useState(0);
-  const current = product.images[active];
-
-  return (
-    <div>
-      <figure className="m-0">
-        <div className="border rounded-md bg-paper overflow-hidden">
-          <Image
-            src={current.src}
-            alt={current.alt}
-            placeholder="blur"
-            sizes="(min-width: 1024px) 50vw, 100vw"
-            className="block w-full h-auto"
-          />
-        </div>
-        <figcaption className="strip-label mt-2">{current.caption}</figcaption>
-      </figure>
-      {product.images.length > 1 && (
-        <div className="mt-3 flex flex-wrap gap-2">
-          {product.images.map((image, idx) => (
-            <button
-              key={image.caption}
-              type="button"
-              onClick={() => setActive(idx)}
-              aria-label={`Show screenshot: ${image.caption}`}
-              aria-pressed={idx === active}
-              className={twMerge(
-                "w-20 sm:w-24 overflow-hidden rounded-md border-2 transition",
-                idx === active
-                  ? "border-ink"
-                  : "border-rule opacity-70 hover:opacity-100 hover:border-ink-soft"
-              )}
-            >
-              <Image
-                src={image.src}
-                alt=""
-                sizes="96px"
-                className="block w-full h-auto"
-              />
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-};
-
 const ProjectDetails = ({ product }: { product: Product }) => (
-  <div className="flex flex-col">
+  <div className="flex flex-col h-full">
     <h3 className="text-2xl font-bold">{product.title}</h3>
     <p className="mt-1 text-sm font-medium text-chart">{product.tagline}</p>
     <p className="mt-3 text-base leading-relaxed text-ink-soft">{product.description}</p>
@@ -122,6 +83,12 @@ const ProjectDetails = ({ product }: { product: Product }) => (
         <ProjectLink href={product.live} icon={IconExternalLink} label="Live demo" primary />
       )}
       <ProjectLink href={product.href} icon={IconBrandGithub} label="Source code" />
+      {product.caseStudy && (
+        <Link href={product.caseStudy} className="btn-secondary">
+          <IconFileText className="h-4 w-4" />
+          Case study
+        </Link>
+      )}
     </div>
   </div>
 );
