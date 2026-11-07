@@ -30,22 +30,27 @@ export default function Home() {
       <div className="space-y-20 md:space-y-24">
         <section id="home">
           {/* Navbar watches this block: it shows the name only once this has scrolled away. */}
-          <div id="hero-identity" className="flex items-center gap-5">
+          <div id="hero-identity" className="flex items-center gap-4">
             <Image
               src="/images/gallery/pic5.jpeg"
               alt="Srivatsa Nayak"
-              width={88}
-              height={88}
+              width={64}
+              height={64}
               priority
-              className="h-16 w-16 sm:h-[88px] sm:w-[88px] rounded-full object-cover object-top ring-4 ring-sheet shadow-sm flex-shrink-0"
+              className="h-12 w-12 sm:h-16 sm:w-16 rounded-full object-cover object-top ring-4 ring-sheet shadow-sm flex-shrink-0"
             />
-            <Heading className="max-w-2xl">Hi, I&apos;m Srivatsa Nayak</Heading>
+            <p className="font-display font-semibold text-base sm:text-lg text-ink">
+              Srivatsa Nayak
+            </p>
           </div>
+          <Heading className="mt-6 max-w-3xl text-3xl sm:text-4xl lg:text-5xl">
+            I build Java backends that bring mainframe workloads into the cloud.
+          </Heading>
           <Paragraph className="max-w-2xl mt-5">
-            Software Engineer with 3+ years of experience building{" "}
-            <Highlight>cloud-native backend systems</Highlight> in Java and
-            Spring Boot — microservices, REST APIs, and the CI/CD, container
-            and observability tooling that keeps them reliable in production.
+            Software engineer at CloudFrame with 3+ years in{" "}
+            <Highlight>Java and Spring Boot</Highlight>. I build microservices
+            and the CI/CD, container and monitoring setup that keeps them
+            running.
           </Paragraph>
 
           <div className="mt-8">
@@ -73,23 +78,20 @@ export default function Home() {
         <section id="projects" className="border-t pt-16">
           <SectionHeader
             title="Projects"
-            intro="Personal projects I've designed, built and deployed end to end, from the database and API through to the UI."
+            intro="Side projects I built end to end, from database to UI."
           />
           <Products />
         </section>
 
         <section id="experience" className="border-t pt-16">
-          <SectionHeader
-            title="Experience"
-            intro="Roles I've held and the impact I've delivered."
-          />
+          <SectionHeader title="Experience" />
           <WorkHistory />
         </section>
 
         <section id="contact" className="border-t pt-16">
           <SectionHeader
             title="Contact Me"
-            intro="I'm open to backend and full-stack opportunities and collaborations. Send a message below and I'll respond as soon as I can."
+            intro="I'm open to backend and full-stack roles. Send a message below and I usually reply within two days."
           />
           <Contact />
         </section>

@@ -3,7 +3,7 @@ import React from "react";
 const CELLS = [
   { label: "Role", value: "Software Engineer" },
   { label: "Company", value: "CloudFrame Inc." },
-  { label: "Based in", value: "Bangalore, IN" },
+  { label: "Based in", value: "Bangalore, India" },
   { label: "Experience", value: "3+ years" },
 ];
 
@@ -34,7 +34,7 @@ export const ProfileStrip = () => {
           <dt className="strip-label">Status</dt>
           <dd className="m-0 flex items-center gap-2 font-display font-semibold text-sm text-go">
             <span className="h-2.5 w-2.5 rounded-full bg-go" aria-hidden="true" />
-            Open to collaborations
+            Open to backend and full-stack roles
           </dd>
         </div>
       </dl>

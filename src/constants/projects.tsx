@@ -15,6 +15,33 @@ import blogPlatformEditor from "../../public/images/projects/blog-platform-edito
 
 export const githubProjects: Product[] = [
   {
+    title: "SQL Visualizer",
+    tagline: "Interactive ER-diagram editor backed by a live database",
+    description:
+      "Import a .sql or .csv file and its schema is rendered as an editable entity-relationship diagram. Every change on the canvas — new tables, columns, foreign keys, row edits — runs as real DDL/DML against a database, so the diagram always reflects actual state rather than a parsed copy.",
+    highlights: [
+      "Reads MySQL, MariaDB, PostgreSQL and SQL Server dumps, translating vendor types and keys into a working schema",
+      "Isolates every open file in its own database via a per-workspace DataSource, created lazily and cached",
+      "Exports to six SQL dialects, Mermaid and DBML; includes an AI schema assistant that sees structure, never data",
+      "81 JUnit 5 / MockMvc tests and path-filtered GitHub Actions CI/CD deploying to Azure",
+    ],
+    href: "https://github.com/Srivatsa-Nayak/db-viewer",
+    live: "https://db-viewer-ui-srivatsa.azurewebsites.net",
+    stack: ["Java 17", "Spring Boot", "JdbcTemplate", "SQLite / MySQL", "Next.js", "TypeScript", "React Flow"],
+    images: [
+      {
+        src: sqlVisualizerCanvas,
+        alt: "SQL Visualizer editor showing an online-store schema as an ER diagram with foreign-key relationships",
+        caption: "Editor — schema rendered from live database metadata",
+      },
+      {
+        src: sqlVisualizerLanding,
+        alt: "SQL Visualizer landing page with an animated interactive schema canvas",
+        caption: "Landing page with a live, draggable demo canvas",
+      },
+    ],
+  },
+  {
     title: "Resume Builder",
     tagline: "AI-assisted resume builder with ATS scoring and PDF import/export",
     description:
@@ -53,33 +80,6 @@ export const githubProjects: Product[] = [
         src: resumeBuilderLogin,
         alt: "Resume Builder sign-in page with email and password fields beside a template preview",
         caption: "Sign-in page",
-      },
-    ],
-  },
-  {
-    title: "SQL Visualizer",
-    tagline: "Interactive ER-diagram editor backed by a live database",
-    description:
-      "Import a .sql or .csv file and its schema is rendered as an editable entity-relationship diagram. Every change on the canvas — new tables, columns, foreign keys, row edits — runs as real DDL/DML against a database, so the diagram always reflects actual state rather than a parsed copy.",
-    highlights: [
-      "Reads MySQL, MariaDB, PostgreSQL and SQL Server dumps, translating vendor types and keys into a working schema",
-      "Isolates every open file in its own database via a per-workspace DataSource, created lazily and cached",
-      "Exports to six SQL dialects, Mermaid and DBML; includes an AI schema assistant that sees structure, never data",
-      "81 JUnit 5 / MockMvc tests and path-filtered GitHub Actions CI/CD deploying to Azure",
-    ],
-    href: "https://github.com/Srivatsa-Nayak/db-viewer",
-    live: "https://db-viewer-ui-srivatsa.azurewebsites.net",
-    stack: ["Java 17", "Spring Boot", "JdbcTemplate", "SQLite / MySQL", "Next.js", "TypeScript", "React Flow"],
-    images: [
-      {
-        src: sqlVisualizerCanvas,
-        alt: "SQL Visualizer editor showing an online-store schema as an ER diagram with foreign-key relationships",
-        caption: "Editor — schema rendered from live database metadata",
-      },
-      {
-        src: sqlVisualizerLanding,
-        alt: "SQL Visualizer landing page with an animated interactive schema canvas",
-        caption: "Landing page with a live, draggable demo canvas",
       },
     ],
   },

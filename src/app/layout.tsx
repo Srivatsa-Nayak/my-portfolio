@@ -12,10 +12,30 @@ const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
 });
 
+const SITE_URL = "https://srivatsa-portfolio.vercel.app";
+const TITLE = "Srivatsa Nayak - Software Engineer";
+const DESCRIPTION =
+  "Srivatsa Nayak — Software Engineer building cloud-native backend systems with Java, Spring Boot, microservices and Kubernetes.";
+
+// The preview image itself comes from `opengraph-image.tsx`; Next.js adds the
+// og:image tags, and X/Twitter falls back to og:image for the large card.
 export const metadata: Metadata = {
-  title: "Srivatsa Nayak - Software Engineer",
-  description:
-    "Srivatsa Nayak — Software Engineer building cloud-native backend systems with Java, Spring Boot, microservices and Kubernetes.",
+  metadataBase: new URL(SITE_URL),
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraph: {
+    type: "website",
+    url: "/",
+    siteName: "Srivatsa Nayak",
+    title: TITLE,
+    description: DESCRIPTION,
+    locale: "en_GB",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+  },
 };
 
 export default function RootLayout({

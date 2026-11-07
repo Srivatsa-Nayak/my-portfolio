@@ -4,7 +4,7 @@ export const timeline = [
     title: "Software Engineer",
     date: "Jul 2023 – Present",
     current: true,
-    location: "Bangalore, Karnataka",
+    location: "Bangalore, India",
     summary:
       "CloudFrame builds tooling that modernises mainframe COBOL applications into Java. As a Software Engineer, I design and build the Java/Spring Boot services behind that work — improving performance on large mainframe data sets, automating migrations, and deploying and monitoring applications on Kubernetes.",
     responsibilities: [
@@ -50,7 +50,7 @@ export const timeline = [
     title: "Software Engineer Intern",
     date: "Feb 2023 – Jun 2023",
     current: false,
-    location: "Bangalore, Karnataka",
+    location: "Bangalore, India",
     summary:
       "Joined CloudFrame's engineering team as an intern, building backend services and internal tools that help developers work faster.",
     responsibilities: [
