@@ -1,5 +1,10 @@
 import { OtherProject, Product } from "@/types/products";
 
+import resumeBuilderLanding from "../../public/images/projects/resume-builder-landing.webp";
+import resumeBuilderEditor from "../../public/images/projects/resume-builder-editor.webp";
+import resumeBuilderAts from "../../public/images/projects/resume-builder-ats.webp";
+import resumeBuilderTemplates from "../../public/images/projects/resume-builder-templates.webp";
+import resumeBuilderLogin from "../../public/images/projects/resume-builder-login.webp";
 import sqlVisualizerCanvas from "../../public/images/projects/sql-visualizer-canvas.webp";
 import sqlVisualizerLanding from "../../public/images/projects/sql-visualizer-landing.webp";
 import routeCheckVerdict from "../../public/images/projects/route-check-verdict.webp";
@@ -9,6 +14,48 @@ import blogPlatformApi from "../../public/images/projects/blog-platform-api.webp
 import blogPlatformEditor from "../../public/images/projects/blog-platform-editor.webp";
 
 export const githubProjects: Product[] = [
+  {
+    title: "Resume Builder",
+    tagline: "AI-assisted resume builder with ATS scoring and PDF import/export",
+    description:
+      "A full-stack app for writing resumes that get past applicant tracking systems. Users fill in a step-by-step editor with a live preview, pick from 28 ATS-friendly templates, import an existing PDF, and score the result against a job description — with an AI assistant to write and improve bullets along the way.",
+    highlights: [
+      "ATS scoring engine: job-description keyword extraction with aliases (k8s → Kubernetes), required vs. nice-to-have weighting and 17 structural checks",
+      "PDF import via pdf.js with two-column detection and AI or heuristic parsing, plus Tesseract OCR fallback for scanned files",
+      "AI requests routed through the user's own encrypted key (AES-256-GCM), then a rate-limited platform key, then an offline assistant",
+      "PDF export with embedded fonts so text stays selectable; 86 Vitest tests, including a PDF round trip for all 28 templates",
+    ],
+    href: "https://github.com/Srivatsa-Nayak/resume-builder",
+    live: "https://resume-builder-green-beta-85.vercel.app/",
+    stack: ["Next.js 16", "React 19", "TypeScript", "Prisma", "PostgreSQL", "Tailwind CSS", "react-pdf", "Vitest"],
+    images: [
+      {
+        src: resumeBuilderEditor,
+        alt: "Resume Builder editor with a step-by-step form on the left and a live resume preview on the right",
+        caption: "Editor — step-by-step form with a live preview",
+      },
+      {
+        src: resumeBuilderAts,
+        alt: "ATS check tab showing a resume health score of 100 with category breakdowns and a checklist",
+        caption: "ATS check — health score, job-description match and checklist",
+      },
+      {
+        src: resumeBuilderLanding,
+        alt: "Resume Builder landing page with keyword-highlighted resume and a job match score",
+        caption: "Landing page",
+      },
+      {
+        src: resumeBuilderTemplates,
+        alt: "Template gallery with search, category filters and resume template previews",
+        caption: "Template gallery — 28 templates with search and filters",
+      },
+      {
+        src: resumeBuilderLogin,
+        alt: "Resume Builder sign-in page with email and password fields beside a template preview",
+        caption: "Sign-in page",
+      },
+    ],
+  },
   {
     title: "SQL Visualizer",
     tagline: "Interactive ER-diagram editor backed by a live database",

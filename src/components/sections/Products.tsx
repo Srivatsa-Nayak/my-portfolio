@@ -12,7 +12,7 @@ import {
 import { twMerge } from "tailwind-merge";
 
 // Holder-band colour for each featured project's strip, in display order.
-const BANDS = ["bg-chart", "bg-magenta", "bg-go"];
+const BANDS = ["bg-chart", "bg-magenta", "bg-go", "bg-buff"];
 
 export const Products = () => {
   return (
@@ -86,7 +86,7 @@ const Screenshots = ({ product }: { product: Product }) => {
         <figcaption className="strip-label mt-2">{current.caption}</figcaption>
       </figure>
       {product.images.length > 1 && (
-        <div className="mt-3 flex gap-2">
+        <div className="mt-3 flex flex-wrap gap-2">
           {product.images.map((image, idx) => (
             <button
               key={image.caption}
