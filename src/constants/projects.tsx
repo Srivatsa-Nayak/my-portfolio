@@ -108,6 +108,7 @@ export const githubProjects: Product[] = [
       "GitHub Actions pipeline publishes versioned images and the Helm chart to GHCR",
     ],
     href: "https://github.com/Srivatsa-Nayak/Aerothon-6.0",
+    caseStudy: "/projects/route-check",
     stack: ["React", "Node.js", "Express", "Docker", "Helm", "OpenShift"],
     architecture: [
       [{ label: "React + Vite", detail: "served by nginx" }],
@@ -117,7 +118,8 @@ export const githubProjects: Product[] = [
         { label: "5 external APIs", detail: "or built-in mock data", external: true },
       ],
     ],
-    hosting: "Three containers on OpenShift via Helm",
+    // No hosted demo by design: visitors run it locally (see the case study).
+    hosting: "No hosted demo · runs locally with Docker Compose, or on OpenShift via Helm",
     images: [
       {
         src: routeCheckVerdict,

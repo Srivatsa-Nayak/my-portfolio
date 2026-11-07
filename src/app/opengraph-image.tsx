@@ -96,7 +96,7 @@ export default function OpengraphImage() {
               }}
             >
               <div style={{ display: "flex" }}>
-                Software Engineer · Java · Spring Boot · Kubernetes
+                Java Backend Engineer · Spring Boot · Kubernetes
               </div>
               <div
                 style={{

@@ -4,27 +4,26 @@ export default function About() {
   return (
     <div className="grid gap-8 lg:grid-cols-[minmax(0,1.7fr)_minmax(0,1fr)] lg:gap-12">
       <div className="space-y-4">
+        {/* The hero and results strip already cover role, years and the
+            mainframe results, so this section adds background and evidence
+            rather than repeating them. */}
         <Paragraph>
-          I&apos;m a backend-focused Software Engineer with 3+ years of
-          experience designing and building cloud-native applications in Java
-          and Spring Boot. At CloudFrame, much of my work sits where mainframe
-          systems meet modern Java — EBCDIC data, VSAM- and CICS-based
-          applications, and Spring Batch workloads moving to microservices —
-          where performance engineering and careful migration matter equally.
+          I joined CloudFrame as an intern in February 2023, during the final
+          semester of my B.E. in Information Science, and stayed on full time.
+          Moving decades-old systems onto modern Java has been the thread
+          running through that work ever since.
         </Paragraph>
         <Paragraph>
-          I care about code quality and test-driven development, and about the
-          operational side of software: containerising services, running them
-          on Kubernetes and OpenShift, and making them observable with
-          Prometheus, Grafana and Splunk so issues are caught before users
-          notice them.
+          My side projects ship with tests and CI: 171 backend tests on SQL
+          Visualizer, 86 on Resume Builder, and GitHub Actions pipelines that
+          deploy SQL Visualizer to Azure and publish Route Check&apos;s
+          containers. At work I run services on Kubernetes and OpenShift,
+          monitored with Prometheus, Grafana and Splunk.
         </Paragraph>
         <Paragraph>
-          Outside of work, I build full-stack side projects to explore new
-          problems end to end — from a schema visualizer backed by a live
-          database to a weather-aware flight routing tool that reached the
-          finals of Airbus Aerothon. I&apos;m open to backend and full-stack
-          roles and collaborations.
+          I&apos;m looking for a backend or full-stack role where I can keep
+          building Java services and the infrastructure that keeps them
+          running.
         </Paragraph>
       </div>
 
