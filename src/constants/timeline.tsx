@@ -29,7 +29,7 @@ export const timeline = [
       {
         title: "Kubernetes deployment and observability",
         description:
-          "Containerised a CICS-based Spring application and deployed it on Kubernetes, with Splunk for centralised logging and Prometheus/Grafana dashboards for metrics. This reduced mean time to debug and enabled proactive incident detection.",
+          "Containerised a CICS-based Spring application and deployed it on Kubernetes, with Splunk for centralised logging and Prometheus/Grafana dashboards for metrics, cutting the time to track down a production issue from hours to minutes and enabling proactive incident detection.",
       },
       {
         title: "Self-service sandbox platform",
