@@ -12,15 +12,8 @@ import { Product } from "@/types/products";
 
 // Building blocks shared by the case study pages in src/app/projects/*.
 
-// Setting openGraph on a page replaces the root one, which drops the
-// file-based preview image, so every case study points at it explicitly.
-const PREVIEW_IMAGE = {
-  url: "/opengraph-image",
-  width: 1200,
-  height: 630,
-  alt: "Srivatsa Nayak — I build Java backends that bring mainframe workloads into the cloud.",
-};
-
+// The preview image comes from the case study route's own opengraph-image.tsx
+// (see caseStudyOgImage.tsx); Next.js adds og:image and twitter:image for it.
 export const caseStudyMetadata = ({
   path,
   title,
@@ -33,8 +26,8 @@ export const caseStudyMetadata = ({
   title,
   description,
   alternates: { canonical: path },
-  openGraph: { type: "article", url: path, title, description, images: [PREVIEW_IMAGE] },
-  twitter: { card: "summary_large_image", title, description, images: [PREVIEW_IMAGE] },
+  openGraph: { type: "article", url: path, title, description },
+  twitter: { card: "summary_large_image", title, description },
 });
 
 const BackLink = () => (

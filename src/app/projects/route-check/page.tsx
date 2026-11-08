@@ -38,7 +38,7 @@ const CHECK_STEPS = [
   },
   {
     title: "Apply the flying limits",
-    body: "Each reading is checked against two limits: visibility of at least 1 km and wind of at most 20 km/h. The route is safe only if every city passes.",
+    body: "Each reading is checked against two limits, simplified for the hackathon demo: visibility of at least 1 km and wind of at most 20 km/h. The route is safe only if every city passes.",
   },
 ];
 
@@ -74,8 +74,15 @@ const DEPLOYMENT = [
 
 const TRADE_OFFS = [
   "Weather is checked at the cities a route passes over, not continuously along the path between them.",
-  "Safety comes down to two fixed thresholds, visibility and wind.",
+  "Safety comes down to two fixed thresholds, visibility of 1 km and wind of 20 km/h, simplified for the hackathon demo. Real operating limits depend on the aircraft and the runway, and allow far stronger wind.",
   "The built-in demo data covers South Indian airports only (BLR, MAA, COK, HYD and a few others).",
+];
+
+// Each item answers one of the trade-offs above.
+const NEXT_STEPS = [
+  "Check the weather along the whole path between cities, not only at the cities themselves.",
+  "Replace the two fixed thresholds with limits that depend on the aircraft and the runway, such as crosswind limits.",
+  "Extend the demo data beyond South Indian airports, so mock mode can show routes anywhere.",
 ];
 
 export default function RouteCheckCaseStudy() {
@@ -176,6 +183,10 @@ export default function RouteCheckCaseStudy() {
 
         <CaseStudySection id="trade-offs" title="Trade-offs">
           <BulletList items={TRADE_OFFS} muted />
+        </CaseStudySection>
+
+        <CaseStudySection id="next" title="What I'd do next">
+          <BulletList items={NEXT_STEPS} />
         </CaseStudySection>
 
         <CaseStudyFooter />
